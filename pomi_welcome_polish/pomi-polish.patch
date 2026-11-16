@@ -3363,7 +3363,7 @@ index 86e1721..428e05b 100644
            <p className="text-xs uppercase tracking-wider text-white/70">
              Your contribution
 diff --git a/src/components/CycleStatus.jsx b/src/components/CycleStatus.jsx
-index 7560e54..1be954e 100644
+index 7560e54..4e0b5ac 100644
 --- a/src/components/CycleStatus.jsx
 +++ b/src/components/CycleStatus.jsx
 @@ -57,7 +57,7 @@ export default function CycleStatus({ logs }) {
@@ -3384,15 +3384,19 @@ index 7560e54..1be954e 100644
              {meta.title}
            </h2>
            <p className="mt-2 max-w-xs text-sm text-slate-500">{meta.sub}</p>
-@@ -120,7 +120,7 @@ export default function CycleStatus({ logs }) {
+@@ -120,10 +120,10 @@ export default function CycleStatus({ logs }) {
              <div className="absolute inset-0 flex flex-col items-center justify-center">
                {status.phase !== "unknown" ? (
                  <>
 -                  <span className="font-heading text-4xl font-semibold text-slate-800">
-+                  <span className="font-serif text-5xl font-medium text-pomegranate-900">
++                  <span className="font-serif text-5xl font-medium leading-none text-pomegranate-900">
                      {status.dayOfCycle}
                    </span>
-                   <span className="text-xs uppercase tracking-widest text-slate-400">
+-                  <span className="text-xs uppercase tracking-widest text-slate-400">
++                  <span className="mt-2 text-xs uppercase tracking-widest text-slate-400">
+                     day of cycle
+                   </span>
+                 </>
 @@ -146,7 +146,7 @@ function Stat({ icon, label, value, hint }) {
          <span className="text-xs uppercase tracking-wider">{label}</span>
        </div>
@@ -4551,7 +4555,7 @@ index 31d20a6..63a9230 100644
                <>
                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
 diff --git a/src/pages/Home.jsx b/src/pages/Home.jsx
-index 04b3402..d9fafaf 100644
+index 04b3402..64ca5e1 100644
 --- a/src/pages/Home.jsx
 +++ b/src/pages/Home.jsx
 @@ -1,4 +1,5 @@
@@ -4580,7 +4584,7 @@ index 04b3402..d9fafaf 100644
          >
            <Link to="/profile" aria-label="Your profile">
              <UserRound className="h-5 w-5" />
-@@ -132,7 +131,7 @@ export default function Home() {
+@@ -132,29 +131,29 @@ export default function Home() {
          <Button
            asChild
            variant="outline"
@@ -4588,8 +4592,10 @@ index 04b3402..d9fafaf 100644
 +          className="rounded-full border-pomegranate-200 bg-transparent text-pomegranate-700 hover:bg-pomegranate-50 hover:text-pomegranate-800 px-4"
          >
            <Link to="/upgrade" aria-label="Go ad-free">
-             <Sparkles className="mr-1.5 h-4 w-4" />
-@@ -141,20 +140,20 @@ export default function Home() {
+-            <Sparkles className="mr-1.5 h-4 w-4" />
++            <Sparkles className="h-4 w-4 sm:mr-1.5" />
+             <span className="hidden sm:inline">Go ad-free</span>
+           </Link>
          </Button>
          <Button
            onClick={openLogger}

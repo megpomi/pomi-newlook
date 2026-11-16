@@ -11,6 +11,7 @@ const dayStr = (offset) => {
 
 // Sample cycles so the dashboard has something to show.
 const SAMPLE = {
+  DailyLog: [],
   CycleLog: [-88, -60, -32, -4].map((start, i) => ({
     id: `sample-${i}`,
     start_date: dayStr(start),

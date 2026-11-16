@@ -5,3 +5,4 @@ Backlog: PublicHeader mobile wrapping (shared component, out of scope); transpar
 Preview fix (2026-06): /app/frontend now renders the welcome screen with a Before/After toggle (src/pomi/*, App.js) for viewing only; not for the Pomi repo. Tested: iteration_1 100%.
 Iteration 2 (2026-06): mobile header tidy (About/Contact hidden <sm, in footer), onboarding steps serif+refined buttons via onboarding/styles.js, transparent logo. Deliverables refreshed in /app/pomi_welcome_polish (pomi-polish.patch). Preview uses MOCKED base44 client.
 Iteration 3 (2026-06): AuthLayout/Login/ForgotPassword serif polish, About/Contact typography+spacing, StepProgress bar. Patch refreshed.
+Iteration 4 (2026-06): Register polish, PomiLoader soft-fade replaces spinners, dashboard serif/cream cards. tailwind font-serif=Cormorant.

@@ -1,0 +1,29 @@
+{
+  "summary": "Frontend-only test (mocked base44 client) on desktop 1920 and mobile 390. All requested features pass with no page errors or console errors; the only console messages are PostHog bot-filter warnings. /register: h1 'Create your account' is Cormorant Garamond, with a 40x1 rose divider (rgb 208,170,177). Google button is white, 48px, pill, pomegranate-200 border. 'Create account' is 56px, pill, rgb(135,92,102), identical to /login 'Log in'. Cream card. Mismatched passwords show 'Passwords do not match'. A valid submit shows 'Verify your email' (serif h1) with a 56px pill 'Verify' button, disabled until 6 digits are entered, then it redirects to '/'. 'Log in' goes to /login and /login 'Create one' goes to /register. /preview-loader (reached via preview-menu-button -> preview-open-loader): pomi-loader is a centered 54px logo, the image loads, no SVG spinner, animation-name soft-fade 2.4s infinite, and sampled opacity pulses 0.36->0.94->0.71. Dashboard via preview-open-dashboard: 'Hello, Alex' and all card headings ('On your period', 'Your cycle stats', 'Your calendar', 'Your symptom patterns', mission 'Every day you track...', 'Your donations') are Cormorant Garamond. Main cards are rgba(255,255,255,0.7) with a 1px rgb(239,225,227) border. 'Log today' is a filled pomegranate pill and 'Go ad-free' is a transparent outline pill. Mobile 390: scrollWidth is 390 and no element overflows. preview-reset clears pomi_* keys and shows 'Welcome to Pomi'. preview-toggle-before shows the sans-serif original and toggle-after shows the serif version. Regression: welcome -> Menstrual cycles -> All of the above -> name + Google -> 'Are you currently menstruating?' -> Finish lands on the real dashboard 'Hello, TEST_Sam', and the old placeholder is gone. /login, /forgot-password, /about and /contact render.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Dashboard CycleStatus ring (desktop and mobile)", "issues": ["The big serif '5' in the cycle ring sits on top of the 'DAY OF CYCLE' label. The label text overlaps the bottom of the numeral. Add spacing or move the label down."]},
+      {"screen": "Dashboard header on mobile 390", "issues": ["'Go ad-free' collapses to an icon only, but the Sparkles icon keeps mr-1.5, so it sits off-centre in the pill. Make the margin sm:mr-1.5."]},
+      {"screen": "Dashboard after a fresh signup (preview mock)", "issues": ["The banner 'Thanks for logging today' appears right after onboarding, because the sample CycleLog data is shared by every mock user. This affects the preview only."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Optional polish: fix the '5' / 'DAY OF CYCLE' overlap in the CycleStatus ring",
+    "Optional polish: centre the icon in the mobile 'Go ad-free' button"
+  ],
+  "critical_code_review_comments": [
+    "Register, Login and the dashboard header buttons (Log today, Go ad-free, profile) still have no data-testid attributes. Tests have to rely on roles, text and #ids.",
+    "The Register error box has no role='alert'.",
+    "AccountStep social buttons stay disabled until a name is entered, with no visible hint why. Consider adding helper text."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100%"},
+  "seed_data_creation": "none (localStorage only, cleared before each run)",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Clear localStorage before each run. Onboarding: wait for [data-testid=onboarding-start-button] plus about 1s for the framer animation, then click it. Step 1 is the 'Menstrual cycles' button, step 2 is 'All of the above', and 'Continue' (exact) moves on. Step 3 needs placeholder 'e.g. Alex' filled before 'Continue with Google' is enabled. Then 'Finish'. The signed-in dashboard is the preview menu item preview-open-dashboard (user Alex)."
+}

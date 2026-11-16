@@ -134,7 +134,7 @@ export default function Home() {
           className="rounded-full border-pomegranate-200 bg-transparent text-pomegranate-700 hover:bg-pomegranate-50 hover:text-pomegranate-800 px-4"
         >
           <Link to="/upgrade" aria-label="Go ad-free">
-            <Sparkles className="mr-1.5 h-4 w-4" />
+            <Sparkles className="h-4 w-4 sm:mr-1.5" />
             <span className="hidden sm:inline">Go ad-free</span>
           </Link>
         </Button>

@@ -120,10 +120,10 @@ export default function CycleStatus({ logs }) {
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               {status.phase !== "unknown" ? (
                 <>
-                  <span className="font-serif text-5xl font-medium text-pomegranate-900">
+                  <span className="font-serif text-5xl font-medium leading-none text-pomegranate-900">
                     {status.dayOfCycle}
                   </span>
-                  <span className="text-xs uppercase tracking-widest text-slate-400">
+                  <span className="mt-2 text-xs uppercase tracking-widest text-slate-400">
                     day of cycle
                   </span>
                 </>
