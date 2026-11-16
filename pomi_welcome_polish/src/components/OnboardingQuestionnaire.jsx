@@ -14,6 +14,7 @@ import ChoiceCard from "@/components/onboarding/ChoiceCard";
 import IntroStep from "@/components/onboarding/IntroStep";
 import AccountStep from "@/components/onboarding/AccountStep";
 import SymptomHistoryStep from "@/components/onboarding/SymptomHistoryStep";
+import StepProgress from "@/components/onboarding/StepProgress";
 import {
   SERIF,
   stepPage,
@@ -137,7 +138,8 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
           <span className={stepLabel}>
             Step {step} of 3
           </span>
-          <h1 style={SERIF} className={`mt-3 ${stepHeading}`}>
+          <StepProgress step={step} total={3} />
+          <h1 style={SERIF} className={`mt-5 ${stepHeading}`}>
             {isFirst
               ? "What would you like to track?"
               : "Which causes matter to you?"}

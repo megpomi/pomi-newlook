@@ -3262,14 +3262,61 @@ z8L4{eh;f<asv1ErM&QwJ!6$zH^O8n3p0)G$D~44rU;SYKvq$5R^S{N<yZ08lp|;w{
 z$s^;t`sb6>5wrMJ9~%G{NhZ+jYhlI520MLf<i8(R7}zr7{`1~A`rm-KDYC}@1pI%&
 rS|(pR{QtpG|NE=|+xg~mbN>?zZ?70X=j0|I?CX&N%8S*A8U+3ip6C5Y
 
+diff --git a/src/components/AuthLayout.jsx b/src/components/AuthLayout.jsx
+index 0943161..691938f 100644
+--- a/src/components/AuthLayout.jsx
++++ b/src/components/AuthLayout.jsx
+@@ -1,28 +1,32 @@
+ import React from "react";
+ import { Image } from "@/components/ui/image";
+ import pomiLogo from "@/assets/pomi-logo.png";
++import { SERIF, softCard, stepSubtitle } from "@/components/onboarding/styles";
+ 
+ export default function AuthLayout({ title, subtitle, footer, children }) {
+   return (
+-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+-      <div className="w-full max-w-md">
+-        <div className="text-center mb-10">
+-          <div className="mb-4 flex justify-center">
++    <div className="flex min-h-screen items-center justify-center bg-background px-6 py-14 sm:py-20">
++      <div className="w-full max-w-[26rem]">
++        <div className="mb-10 flex flex-col items-center text-center">
++          <div className="mb-6 flex justify-center">
+             <Image
+               src={pomiLogo}
+               alt="Pomi"
+-              className="h-16 w-16"
++              className="h-12 w-12"
+               fittingType="fit"
+             />
+           </div>
+-          <h1 className="text-3xl font-bold tracking-tight text-foreground">{title}</h1>
+-          {subtitle && <p className="text-muted-foreground mt-2">{subtitle}</p>}
++          <h1 style={SERIF} className="text-[2.5rem] font-medium leading-[1.1] tracking-[-0.01em] text-pomegranate-900 sm:text-5xl">
++            {title}
++          </h1>
++          <span aria-hidden="true" className="mt-5 h-px w-10 bg-pomegranate-300" />
++          {subtitle && <p className={stepSubtitle}>{subtitle}</p>}
+         </div>
+-        <div className="bg-card rounded-2xl shadow-sm border border-border p-8">
++        <div className={`p-6 sm:p-8 ${softCard}`}>
+           {children}
+         </div>
+         {footer && (
+-          <p className="text-center text-sm text-muted-foreground mt-6">{footer}</p>
++          <p className="mt-8 text-center text-sm text-slate-500">{footer}</p>
+         )}
+       </div>
+     </div>
 diff --git a/src/components/OnboardingQuestionnaire.jsx b/src/components/OnboardingQuestionnaire.jsx
-index cd2ed2e..e6515c2 100644
+index cd2ed2e..3192442 100644
 --- a/src/components/OnboardingQuestionnaire.jsx
 +++ b/src/components/OnboardingQuestionnaire.jsx
-@@ -14,6 +14,17 @@ import ChoiceCard from "@/components/onboarding/ChoiceCard";
+@@ -14,6 +14,18 @@ import ChoiceCard from "@/components/onboarding/ChoiceCard";
  import IntroStep from "@/components/onboarding/IntroStep";
  import AccountStep from "@/components/onboarding/AccountStep";
  import SymptomHistoryStep from "@/components/onboarding/SymptomHistoryStep";
++import StepProgress from "@/components/onboarding/StepProgress";
 +import {
 +  SERIF,
 +  stepPage,
@@ -3284,7 +3331,7 @@ index cd2ed2e..e6515c2 100644
  
  export default function OnboardingQuestionnaire({ draft, onComplete }) {
    const [step, setStep] = useState(0);
-@@ -114,24 +125,24 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
+@@ -114,24 +126,25 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
    }
  
    return (
@@ -3305,7 +3352,8 @@ index cd2ed2e..e6515c2 100644
              Step {step} of 3
            </span>
 -          <h1 className="mt-2 font-heading text-3xl font-semibold text-slate-800">
-+          <h1 style={SERIF} className={`mt-3 ${stepHeading}`}>
++          <StepProgress step={step} total={3} />
++          <h1 style={SERIF} className={`mt-5 ${stepHeading}`}>
              {isFirst
                ? "What would you like to track?"
                : "Which causes matter to you?"}
@@ -3315,7 +3363,7 @@ index cd2ed2e..e6515c2 100644
              {isFirst
                ? "Choose what matters to you — this shapes your personalised insights and symptoms predictions and can be updated at any point."
                : "A share of what Pomi earns is donated to these areas - Pick the ones you'd like to support directly, these can be updated at any point."}
-@@ -160,11 +171,11 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
+@@ -160,11 +173,11 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
            )}
          </div>
  
@@ -3329,7 +3377,7 @@ index cd2ed2e..e6515c2 100644
            >
              <ArrowLeft className="mr-1.5 h-4 w-4" />
              Back
-@@ -172,10 +183,10 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
+@@ -172,10 +185,10 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
            <Button
              onClick={() => setStep(step + 1)}
              disabled={!selected.length}
@@ -3398,10 +3446,16 @@ index 00a7c44..6c929e3 100644
              <Link to="/">Start with Pomi</Link>
            </Button>
 diff --git a/src/components/onboarding/AccountStep.jsx b/src/components/onboarding/AccountStep.jsx
-index 99ae956..f120dd9 100644
+index 99ae956..5f7d705 100644
 --- a/src/components/onboarding/AccountStep.jsx
 +++ b/src/components/onboarding/AccountStep.jsx
-@@ -12,6 +12,17 @@ import {
+@@ -7,11 +7,23 @@ import { Image } from "@/components/ui/image";
+ import pomiLogo from "@/assets/pomi-logo.png";
+ import { ArrowLeft, Apple, Facebook, Lock, Mail } from "lucide-react";
+ import GoogleIcon from "@/components/GoogleIcon";
++import StepProgress from "@/components/onboarding/StepProgress";
+ import {
+   InputOTP,
    InputOTPGroup,
    InputOTPSlot,
  } from "@/components/ui/input-otp";
@@ -3419,7 +3473,7 @@ index 99ae956..f120dd9 100644
  
  export default function AccountStep({ onBack, onContinue }) {
    const [name, setName] = useState("");
-@@ -64,29 +75,29 @@ export default function AccountStep({ onBack, onContinue }) {
+@@ -64,29 +76,30 @@ export default function AccountStep({ onBack, onContinue }) {
    };
  
    return (
@@ -3440,7 +3494,8 @@ index 99ae956..f120dd9 100644
              Step 3 of 3
            </span>
 -          <h1 className="mt-2 font-heading text-3xl font-semibold text-slate-800">
-+          <h1 style={SERIF} className={`mt-3 ${stepHeading}`}>
++          <StepProgress step={3} total={3} />
++          <h1 style={SERIF} className={`mt-5 ${stepHeading}`}>
              {showOtp ? "Verify your email" : "What should we call you?"}
            </h1>
 -          <p className="mt-2 max-w-md text-sm text-slate-500">
@@ -3456,7 +3511,7 @@ index 99ae956..f120dd9 100644
            {showOtp ? (
              <div className="space-y-4">
                <div className="flex justify-center">
-@@ -110,7 +121,7 @@ export default function AccountStep({ onBack, onContinue }) {
+@@ -110,7 +123,7 @@ export default function AccountStep({ onBack, onContinue }) {
                <Button
                  onClick={handleVerify}
                  disabled={loading || otpCode.length < 6}
@@ -3465,7 +3520,7 @@ index 99ae956..f120dd9 100644
                >
                  {loading ? "Verifying…" : "Verify and continue"}
                </Button>
-@@ -182,7 +193,7 @@ export default function AccountStep({ onBack, onContinue }) {
+@@ -182,7 +195,7 @@ export default function AccountStep({ onBack, onContinue }) {
                  <Button
                    type="submit"
                    disabled={loading || !ready}
@@ -3474,7 +3529,7 @@ index 99ae956..f120dd9 100644
                  >
                    {loading ? "Creating your account…" : "Create account"}
                  </Button>
-@@ -193,7 +204,7 @@ export default function AccountStep({ onBack, onContinue }) {
+@@ -193,7 +206,7 @@ export default function AccountStep({ onBack, onContinue }) {
                    <div className="w-full border-t border-pomegranate-100" />
                  </div>
                  <div className="relative flex justify-center text-xs uppercase">
@@ -3483,7 +3538,7 @@ index 99ae956..f120dd9 100644
                  </div>
                </div>
  
-@@ -202,7 +213,7 @@ export default function AccountStep({ onBack, onContinue }) {
+@@ -202,7 +215,7 @@ export default function AccountStep({ onBack, onContinue }) {
                    variant="outline"
                    disabled={!ready}
                    onClick={() => onContinue(name.trim(), "google")}
@@ -3492,7 +3547,7 @@ index 99ae956..f120dd9 100644
                  >
                    <GoogleIcon className="mr-2 h-5 w-5" />
                    Continue with Google
-@@ -211,7 +222,7 @@ export default function AccountStep({ onBack, onContinue }) {
+@@ -211,7 +224,7 @@ export default function AccountStep({ onBack, onContinue }) {
                    variant="outline"
                    disabled={!ready}
                    onClick={() => onContinue(name.trim(), "apple")}
@@ -3501,7 +3556,7 @@ index 99ae956..f120dd9 100644
                  >
                    <Apple className="mr-2 h-5 w-5" />
                    Continue with Apple
-@@ -220,7 +231,7 @@ export default function AccountStep({ onBack, onContinue }) {
+@@ -220,7 +233,7 @@ export default function AccountStep({ onBack, onContinue }) {
                    variant="outline"
                    disabled={!ready}
                    onClick={() => onContinue(name.trim(), "facebook")}
@@ -3510,7 +3565,7 @@ index 99ae956..f120dd9 100644
                  >
                    <Facebook className="mr-2 h-5 w-5" />
                    Continue with Facebook
-@@ -237,7 +248,7 @@ export default function AccountStep({ onBack, onContinue }) {
+@@ -237,7 +250,7 @@ export default function AccountStep({ onBack, onContinue }) {
              variant="outline"
              onClick={onBack}
              disabled={loading}
@@ -3721,6 +3776,32 @@ index 13932a4..d7b51df 100644
 -}
 \ No newline at end of file
 +}
+diff --git a/src/components/onboarding/StepProgress.jsx b/src/components/onboarding/StepProgress.jsx
+new file mode 100644
+index 0000000..430fda1
+--- /dev/null
++++ b/src/components/onboarding/StepProgress.jsx
+@@ -0,0 +1,20 @@
++import React from "react";
++
++export default function StepProgress({ step, total }) {
++  return (
++    <div
++      role="progressbar"
++      aria-valuemin={1}
++      aria-valuemax={total}
++      aria-valuenow={step}
++      aria-label={`Step ${step} of ${total}`}
++      data-testid="onboarding-progress"
++      className="mt-3 h-[3px] w-28 overflow-hidden rounded-full bg-pomegranate-100"
++    >
++      <div
++        className="h-full rounded-full bg-pomegranate-500 transition-[width] duration-500 ease-out"
++        style={{ width: `${(step / total) * 100}%` }}
++      />
++    </div>
++  );
++}
 diff --git a/src/components/onboarding/SymptomHistoryStep.jsx b/src/components/onboarding/SymptomHistoryStep.jsx
 index 22f7ceb..0fc30f7 100644
 --- a/src/components/onboarding/SymptomHistoryStep.jsx
@@ -3831,3 +3912,370 @@ index 0000000..42d284c
 +export const backButton =
 +  "h-14 rounded-full border-pomegranate-200 bg-transparent px-6 text-[0.9375rem] font-medium text-pomegranate-700 shadow-none transition-colors hover:bg-pomegranate-50 hover:text-pomegranate-800";
 +export const arrowNudge = "ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5";
+diff --git a/src/pages/About.jsx b/src/pages/About.jsx
+index 149c771..857f94b 100644
+--- a/src/pages/About.jsx
++++ b/src/pages/About.jsx
+@@ -5,6 +5,7 @@ import PublicHeader from "@/components/PublicHeader";
+ import PublicFooter from "@/components/PublicFooter";
+ import { CHARITY_OPTIONS } from "@/lib/charities";
+ import { DONATION_SHARE } from "@/lib/donations";
++import { SERIF, softCard } from "@/components/onboarding/styles";
+ 
+ const percent = `${Math.round(DONATION_SHARE * 100)}%`;
+ 
+@@ -31,18 +32,17 @@ export default function About() {
+     <div className="flex min-h-screen flex-col bg-background">
+       <PublicHeader />
+ 
+-      <main className="mx-auto w-full max-w-4xl flex-1 px-5 py-8 sm:px-8 sm:py-12">
+-        <div className="overflow-hidden rounded-3xl border border-pomegranate-100 bg-gradient-to-br from-pomegranate-500 to-pomegranate-800 p-8 text-white sm:p-10">
+-          <div className="mb-4 flex items-center gap-2">
+-            <Heart className="h-4 w-4 fill-white/80" />
+-            <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/80">
++      <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-14 sm:px-8 sm:py-20">
++        <div className="overflow-hidden rounded-3xl bg-pomegranate-800 px-7 py-10 text-white sm:px-12 sm:py-14">
++          <div className="mb-6 flex items-center gap-2">
++            <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-white/70">
+               About us
+             </span>
+           </div>
+-          <h1 className="font-heading text-3xl font-semibold leading-snug sm:text-4xl">
++          <h1 style={SERIF} className="max-w-2xl text-[2.25rem] font-medium leading-[1.12] tracking-[-0.01em] sm:text-5xl">
+             A women's health app that shares what it earns.
+           </h1>
+-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/85">
++          <p className="mt-6 max-w-2xl text-[0.9375rem] leading-[1.75] text-white/85">
+             Pomi is named after the pomegranate, a symbol of health, abundance
+             and natural cycles. We built it because we used period trackers for
+             years and felt uneasy that the money our most personal data generated
+@@ -51,30 +51,30 @@ export default function About() {
+           </p>
+         </div>
+ 
+-        <section className="mt-8 grid gap-4 sm:grid-cols-3">
++        <section className="mt-14 grid gap-5 sm:grid-cols-3">
+           {PILLARS.map((pillar) => (
+             <div
+               key={pillar.title}
+-              className="rounded-3xl border border-slate-100 bg-white p-5"
++              className={`p-6 ${softCard}`}
+             >
+-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-pomegranate-100 text-pomegranate-600">
+-                <pillar.icon className="h-5 w-5" />
++              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-pomegranate-50 text-pomegranate-600 ring-1 ring-pomegranate-100">
++                <pillar.icon className="h-4 w-4" strokeWidth={1.75} />
+               </span>
+-              <h2 className="mt-3 font-heading text-base font-semibold text-slate-800">
++              <h2 style={SERIF} className="mt-5 text-2xl font-medium leading-tight text-pomegranate-900">
+                 {pillar.title}
+               </h2>
+-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
++              <p className="mt-3 text-sm leading-[1.75] text-slate-600">
+                 {pillar.body}
+               </p>
+             </div>
+           ))}
+         </section>
+ 
+-        <section className="mt-8 rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
+-          <h2 className="font-heading text-lg font-semibold text-slate-800">
++        <section className={`mt-8 p-7 sm:p-10 ${softCard}`}>
++          <h2 style={SERIF} className="text-[1.75rem] font-medium leading-tight text-pomegranate-900 sm:text-3xl">
+             What Pomi tracks
+           </h2>
+-          <p className="mt-2 text-sm leading-relaxed text-slate-600">
++          <p className="mt-4 max-w-2xl text-[0.9375rem] leading-[1.75] text-slate-600">
+             You choose what you want to track when you sign up, and you can change
+             it at any time from your profile. Menstrual cycle tracking covers
+             period days, flow, predicted fertile windows and symptoms. General
+@@ -83,26 +83,26 @@ export default function About() {
+             log stays in one place, so you can look back over time and spot
+             patterns.
+           </p>
+-          <p className="mt-3 text-sm leading-relaxed text-slate-600">
++          <p className="mt-4 max-w-2xl text-[0.9375rem] leading-[1.75] text-slate-600">
+             Pomi is not a medical device and does not provide medical advice.
+             Predictions are estimates based on what you log, and they should never
+             replace a conversation with a healthcare professional.
+           </p>
+         </section>
+ 
+-        <section className="mt-8 rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
+-          <h2 className="font-heading text-lg font-semibold text-slate-800">
++        <section className={`mt-8 p-7 sm:p-10 ${softCard}`}>
++          <h2 style={SERIF} className="text-[1.75rem] font-medium leading-tight text-pomegranate-900 sm:text-3xl">
+             The causes we support
+           </h2>
+-          <p className="mt-2 text-sm leading-relaxed text-slate-600">
++          <p className="mt-4 max-w-2xl text-[0.9375rem] leading-[1.75] text-slate-600">
+             Donations are spread across {CHARITY_OPTIONS.length} areas of women's
+             health, each delivered through charities we have chosen for their work:
+           </p>
+-          <ul className="mt-4 flex flex-wrap gap-2">
++          <ul className="mt-6 flex flex-wrap gap-2">
+             {CHARITY_OPTIONS.map((cause) => (
+               <li
+                 key={cause.value}
+-                className="rounded-full bg-pomegranate-50 px-3 py-1.5 text-xs font-medium text-pomegranate-700"
++                className="rounded-full border border-pomegranate-200 bg-pomegranate-50/60 px-3.5 py-1.5 text-xs font-medium text-pomegranate-800"
+               >
+                 {cause.label}
+               </li>
+@@ -110,14 +110,14 @@ export default function About() {
+           </ul>
+           <Link
+             to="/contact"
+-            className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
++            className="group mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-pomegranate-700 underline-offset-4 hover:underline"
+           >
+             Questions about how it works? Contact us
+-            <ArrowRight className="h-4 w-4" />
++            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+           </Link>
+         </section>
+ 
+-        <p className="mt-8 text-center text-xs text-slate-400">
++        <p className="mx-auto mt-12 max-w-md text-center text-xs leading-relaxed text-slate-400">
+           Pomi is an independent app. Your data is used to provide the app and to
+           calculate donations, and nothing else.
+         </p>
+diff --git a/src/pages/Contact.jsx b/src/pages/Contact.jsx
+index 3226667..6fc52fc 100644
+--- a/src/pages/Contact.jsx
++++ b/src/pages/Contact.jsx
+@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
+ import { Check, Clock, Loader2, Mail } from "lucide-react";
+ import PublicHeader from "@/components/PublicHeader";
+ import PublicFooter from "@/components/PublicFooter";
++import { SERIF, softCard, primaryButton, backButton } from "@/components/onboarding/styles";
+ 
+ const EMPTY = { name: "", email: "", message: "" };
+ 
+@@ -49,28 +50,28 @@ export default function Contact() {
+     <div className="flex min-h-screen flex-col bg-background">
+       <PublicHeader />
+ 
+-      <main className="mx-auto w-full max-w-4xl flex-1 px-5 py-8 sm:px-8 sm:py-12">
+-        <div className="mb-8">
+-          <span className="text-xs font-medium uppercase tracking-[0.18em] text-pomegranate-400">
++      <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-14 sm:px-8 sm:py-20">
++        <div className="mb-12">
++          <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-pomegranate-500">
+             Contact us
+           </span>
+-          <h1 className="mt-2 font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
++          <h1 style={SERIF} className="mt-4 text-[2.5rem] font-medium leading-[1.1] tracking-[-0.01em] text-pomegranate-900 sm:text-[3.25rem]">
+             Talk to the Pomi team
+           </h1>
+-          <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-500">
++          <p className="mt-5 max-w-xl text-[0.9375rem] leading-[1.75] text-slate-600">
+             Questions about your account, donations, or how Pomi handles your
+             data? Send us a message and we'll get back to you.
+           </p>
+         </div>
+ 
+-        <div className="grid gap-6 sm:grid-cols-5">
+-          <section className="rounded-3xl border border-slate-100 bg-white p-6 sm:col-span-3 sm:p-8">
++        <div className="grid gap-6 sm:grid-cols-5 sm:gap-8">
++          <section className={`p-6 sm:col-span-3 sm:p-8 ${softCard}`}>
+             {sent ? (
+               <div className="flex flex-col items-start gap-3 py-6">
+-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-pomegranate-100 text-pomegranate-600">
+-                  <Check className="h-5 w-5" />
++                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-pomegranate-50 text-pomegranate-700 ring-1 ring-pomegranate-100">
++                  <Check className="h-4 w-4" strokeWidth={2} />
+                 </span>
+-                <h2 className="font-heading text-lg font-semibold text-slate-800">
++                <h2 style={SERIF} className="text-2xl font-medium text-pomegranate-900">
+                   Message sent
+                 </h2>
+                 <p className="text-sm leading-relaxed text-slate-600">
+@@ -80,13 +81,13 @@ export default function Contact() {
+                 <Button
+                   variant="outline"
+                   onClick={() => setSent(false)}
+-                  className="mt-2 rounded-full border-pomegranate-200 text-pomegranate-600 hover:bg-pomegranate-50"
++                  className={`mt-2 h-12 ${backButton}`}
+                 >
+                   Send another message
+                 </Button>
+               </div>
+             ) : (
+-              <form onSubmit={handleSubmit} className="space-y-4">
++              <form onSubmit={handleSubmit} className="space-y-5">
+                 <div>
+                   <Label htmlFor="contact-name">Your name</Label>
+                   <Input
+@@ -128,7 +129,7 @@ export default function Contact() {
+                 <Button
+                   type="submit"
+                   disabled={sending}
+-                  className="w-full rounded-full bg-pomegranate-600 py-5 hover:bg-pomegranate-700"
++                  className={`w-full ${primaryButton}`}
+                 >
+                   {sending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                   Send message
+@@ -137,26 +138,26 @@ export default function Contact() {
+             )}
+           </section>
+ 
+-          <aside className="space-y-4 sm:col-span-2">
+-            <div className="rounded-3xl border border-slate-100 bg-white p-5">
+-              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-pomegranate-100 text-pomegranate-600">
+-                <Clock className="h-5 w-5" />
++          <aside className="space-y-5 sm:col-span-2">
++            <div className={`p-6 ${softCard}`}>
++              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-pomegranate-50 text-pomegranate-600 ring-1 ring-pomegranate-100">
++                <Clock className="h-4 w-4" strokeWidth={1.75} />
+               </span>
+-              <h2 className="mt-3 font-heading text-base font-semibold text-slate-800">
++              <h2 style={SERIF} className="mt-4 text-xl font-medium text-pomegranate-900">
+                 Response times
+               </h2>
+-              <p className="mt-1.5 text-sm leading-relaxed text-slate-600">
++              <p className="mt-2 text-sm leading-[1.7] text-slate-600">
+                 We aim to reply to every message within two working days.
+               </p>
+             </div>
+-            <div className="rounded-3xl border border-slate-100 bg-white p-5">
+-              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-pomegranate-100 text-pomegranate-600">
+-                <Mail className="h-5 w-5" />
++            <div className={`p-6 ${softCard}`}>
++              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-pomegranate-50 text-pomegranate-600 ring-1 ring-pomegranate-100">
++                <Mail className="h-4 w-4" strokeWidth={1.75} />
+               </span>
+-              <h2 className="mt-3 font-heading text-base font-semibold text-slate-800">
++              <h2 style={SERIF} className="mt-4 text-xl font-medium text-pomegranate-900">
+                 Account and data requests
+               </h2>
+-              <p className="mt-1.5 text-sm leading-relaxed text-slate-600">
++              <p className="mt-2 text-sm leading-[1.7] text-slate-600">
+                 You can delete your account and all of its data yourself from your
+                 profile at any time. For anything else to do with your data, choose
+                 "Your data" in your message.
+@@ -165,7 +166,7 @@ export default function Contact() {
+           </aside>
+         </div>
+ 
+-        <p className="mt-8 text-xs text-slate-400">
++        <p className="mt-12 max-w-xl text-xs leading-relaxed text-slate-400">
+           Pomi is not a medical device. If you have a health concern, please speak
+           to a healthcare professional. In an emergency, contact your local
+           emergency services.
+diff --git a/src/pages/ForgotPassword.jsx b/src/pages/ForgotPassword.jsx
+index 31d20a6..63a9230 100644
+--- a/src/pages/ForgotPassword.jsx
++++ b/src/pages/ForgotPassword.jsx
+@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
+ import { Label } from "@/components/ui/label";
+ import { Mail, ArrowLeft, Loader2 } from "lucide-react";
+ import AuthLayout from "@/components/AuthLayout";
++import { primaryButton } from "@/components/onboarding/styles";
+ 
+ export default function ForgotPassword() {
+   const [email, setEmail] = useState("");
+@@ -31,13 +32,13 @@ export default function ForgotPassword() {
+       title="Reset password"
+       subtitle="We'll send you a link to reset it"
+       footer={
+-        <Link to="/login" className="text-primary font-medium hover:underline">
++        <Link to="/login" className="inline-flex items-center font-medium text-pomegranate-700 underline-offset-4 hover:underline">
+           <ArrowLeft className="w-3 h-3 inline mr-1" />Back to log in
+         </Link>
+       }
+     >
+       {sent ? (
+-        <p className="text-sm text-foreground text-center">
++        <p className="text-center text-[0.9375rem] leading-relaxed text-slate-600">
+           If an account exists with that email, you'll receive a password reset link shortly.
+         </p>
+       ) : (
+@@ -59,7 +60,7 @@ export default function ForgotPassword() {
+               />
+             </div>
+           </div>
+-          <Button type="submit" className="w-full h-12 font-medium" disabled={loading}>
++          <Button type="submit" className={`w-full ${primaryButton}`} disabled={loading}>
+             {loading ? (
+               <>
+                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+diff --git a/src/pages/Login.jsx b/src/pages/Login.jsx
+index f6f6f7a..f8a4326 100644
+--- a/src/pages/Login.jsx
++++ b/src/pages/Login.jsx
+@@ -8,6 +8,7 @@ import { LogIn, Mail, Lock, Loader2, Apple, Facebook } from "lucide-react";
+ import AuthLayout from "@/components/AuthLayout";
+ import GoogleIcon from "@/components/GoogleIcon";
+ import { safeReturnTo } from "@/lib/authReturnTo";
++import { primaryButton } from "@/components/onboarding/styles";
+ 
+ export default function Login() {
+   const [email, setEmail] = useState("");
+@@ -54,7 +55,7 @@ export default function Login() {
+           Don't have an account?{" "}
+           <Link
+             to={"/register" + (returnTo !== "/" ? "?returnTo=" + encodeURIComponent(returnTo) : "")}
+-            className="text-primary font-medium hover:underline"
++            className="font-medium text-pomegranate-700 underline-offset-4 hover:underline"
+           >
+             Create one
+           </Link>
+@@ -64,7 +65,7 @@ export default function Login() {
+       <div className="space-y-3 mb-6">
+         <Button
+           variant="outline"
+-          className="w-full h-12 text-sm font-medium"
++          className="h-12 w-full rounded-full border-pomegranate-200 bg-white text-sm font-medium text-slate-700 shadow-none hover:bg-pomegranate-50"
+           onClick={handleGoogle}
+         >
+           <GoogleIcon className="w-5 h-5 mr-2" />
+@@ -72,7 +73,7 @@ export default function Login() {
+         </Button>
+         <Button
+           variant="outline"
+-          className="w-full h-12 text-sm font-medium"
++          className="h-12 w-full rounded-full border-pomegranate-200 bg-white text-sm font-medium text-slate-700 shadow-none hover:bg-pomegranate-50"
+           onClick={handleApple}
+         >
+           <Apple className="w-5 h-5 mr-2" />
+@@ -80,7 +81,7 @@ export default function Login() {
+         </Button>
+         <Button
+           variant="outline"
+-          className="w-full h-12 text-sm font-medium"
++          className="h-12 w-full rounded-full border-pomegranate-200 bg-white text-sm font-medium text-slate-700 shadow-none hover:bg-pomegranate-50"
+           onClick={handleFacebook}
+         >
+           <Facebook className="w-5 h-5 mr-2" />
+@@ -90,10 +91,10 @@ export default function Login() {
+ 
+       <div className="relative mb-6">
+         <div className="absolute inset-0 flex items-center">
+-          <div className="w-full border-t border-border" />
++          <div className="w-full border-t border-pomegranate-100" />
+         </div>
+         <div className="relative flex justify-center text-xs uppercase">
+-          <span className="bg-card px-3 text-muted-foreground">or</span>
++          <span className="bg-[#fefdfb] px-3 tracking-[0.18em] text-slate-400">or</span>
+         </div>
+       </div>
+ 
+@@ -124,7 +125,7 @@ export default function Login() {
+         <div className="space-y-2">
+           <div className="flex items-center justify-between">
+             <Label htmlFor="password">Password</Label>
+-            <Link to="/forgot-password" className="text-xs text-primary hover:underline">
++            <Link to="/forgot-password" className="text-xs font-medium text-pomegranate-700 underline-offset-4 hover:underline">
+               Forgot password?
+             </Link>
+           </div>
+@@ -142,7 +143,7 @@ export default function Login() {
+             />
+           </div>
+         </div>
+-        <Button type="submit" className="w-full h-12 font-medium" disabled={loading}>
++        <Button type="submit" className={`w-full ${primaryButton}`} disabled={loading}>
+           {loading ? (
+             <>
+               <Loader2 className="w-4 h-4 mr-2 animate-spin" />

@@ -1,7 +1,11 @@
 import { useState } from "react";
 import "@/App.css";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Start from "@/pages/Start";
+import Login from "@/pages/Login";
+import ForgotPassword from "@/pages/ForgotPassword";
+import About from "@/pages/About";
+import Contact from "@/pages/Contact";
 import IntroStepOriginal from "@/pomi/IntroStepOriginal";
 import { resetPreview } from "@/api/base44Client";
 
@@ -29,7 +33,7 @@ const VersionToggle = ({ version, setVersion }) => (
   </div>
 );
 
-function App() {
+const Welcome = () => {
   const [version, setVersion] = useState("after");
   const [started, setStarted] = useState(false);
 
@@ -41,16 +45,38 @@ function App() {
   };
 
   return (
+    <>
+      {version === "after" ? (
+        <Start key="after" />
+      ) : started ? (
+        <BeforeNext onBack={() => setStarted(false)} />
+      ) : (
+        <IntroStepOriginal onStart={() => setStarted(true)} />
+      )}
+      <VersionToggle version={version} setVersion={switchVersion} />
+    </>
+  );
+};
+
+const PreviewPages = () => {
+  const { pathname } = useLocation();
+  return (
+    <Routes key={pathname}>
+      <Route path="/" element={<Welcome />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="*" element={<Welcome />} />
+    </Routes>
+  );
+};
+
+function App() {
+  return (
     <div className="pomi-theme">
       <BrowserRouter>
-        {version === "after" ? (
-          <Start key="after" />
-        ) : started ? (
-          <BeforeNext onBack={() => setStarted(false)} />
-        ) : (
-          <IntroStepOriginal onStart={() => setStarted(true)} />
-        )}
-        <VersionToggle version={version} setVersion={switchVersion} />
+        <PreviewPages />
       </BrowserRouter>
     </div>
   );

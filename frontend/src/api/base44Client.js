@@ -18,12 +18,15 @@ export const base44 = {
     },
     setToken: () => {},
     resendOtp: async () => {},
+    loginViaEmailPassword: async () => write(read() || {}),
+    resetPasswordRequest: async () => {},
     loginWithProvider: (_provider, to) => {
       write(read() || {});
       window.location.href = to;
     },
   },
   entities: { CycleLog: { bulkCreate: async () => {} } },
+  functions: { invoke: async () => ({ data: {} }) },
 };
 
 export const resetPreview = () => {

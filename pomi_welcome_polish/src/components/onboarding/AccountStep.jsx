@@ -7,6 +7,7 @@ import { Image } from "@/components/ui/image";
 import pomiLogo from "@/assets/pomi-logo.png";
 import { ArrowLeft, Apple, Facebook, Lock, Mail } from "lucide-react";
 import GoogleIcon from "@/components/GoogleIcon";
+import StepProgress from "@/components/onboarding/StepProgress";
 import {
   InputOTP,
   InputOTPGroup,
@@ -87,7 +88,8 @@ export default function AccountStep({ onBack, onContinue }) {
           <span className={stepLabel}>
             Step 3 of 3
           </span>
-          <h1 style={SERIF} className={`mt-3 ${stepHeading}`}>
+          <StepProgress step={3} total={3} />
+          <h1 style={SERIF} className={`mt-5 ${stepHeading}`}>
             {showOtp ? "Verify your email" : "What should we call you?"}
           </h1>
           <p className={stepSubtitle}>
