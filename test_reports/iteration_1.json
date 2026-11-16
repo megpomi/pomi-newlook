@@ -1,0 +1,25 @@
+{
+  "summary": "Frontend-only test of the Pomi welcome screen preview with the Before/After toggle, on desktop (1920x1080) and mobile (390x844). All 4 requested features pass. The root URL shows the Pomi welcome screen, not the stock splash. After the 1s reveal: the H1 'Welcome to Pomi' uses Cormorant Garamond at 56px on desktop and 44px on mobile, and document.fonts.check returns true. The tagline is italic, there is one card holding 3 points, and the onboarding-start-button is visible. The toggle defaults to After, and switching to Before shows the original screen (sans-serif h1, 3 separate cards). Start shows preview-next-step and Back returns to the welcome screen. This works in both versions, and changing version while on the next step resets to the welcome screen. No console or page errors. On mobile, main content has no horizontal overflow (main scrollWidth 390 = viewport). The document is 391px wide, caused only by the header, which is pre-existing and out of scope.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Mobile 390x844 welcome (preview only)", "issues": ["The fixed Before/After toggle (bottom-4, z-50) sits on top of the 'Start with Pomi' CTA in the first fold (toggle y=792, button y=790) and partly hides the label until you scroll. This only affects the preview tooling. Optional fix: add bottom padding to the page or move the toggle to the top."]},
+      {"screen": "Welcome logo (both versions)", "issues": ["pomi-logo.png shows a faint off-cream square behind the mark against the cream background, likely a non-transparent asset. Minor and pre-existing."]},
+      {"screen": "Mobile header", "issues": ["Header nav wraps ('About us', 'Contact us', 'Sign in' each on 2 lines) and causes 1px of document overflow. Already noted as pre-existing and out of scope."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": ["Optional: stop the preview toggle from covering the mobile CTA (e.g., pb-20 on the page wrapper or move the toggle to top-4)"],
+  "critical_code_review_comments": [
+    "The original-version CTA (IntroStepOriginal) has no data-testid. That is fine for a mirror of the original, but tests have to rely on text selectors.",
+    "Duplicated IntroStep/IntroStepOriginal structure is acceptable here because it is a deliberate before/after comparison."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100%"},
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Frontend-only preview of the Pomi IntroStep. There is no backend. The 1s reveal timer means you should wait about 1.8s before asserting. The header 'Start with Pomi' link shares its text with the CTA, so use data-testid=onboarding-start-button."
+}

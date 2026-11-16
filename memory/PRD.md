@@ -2,3 +2,4 @@
 Problem: Restrained typography/spacing/button polish of the Pomi (Base44, github.com/megpomi/pomi) onboarding welcome screen only. Target branch (user-created): ui-onboarding-typography-spacing-polish. No logic/route/API/auth changes.
 Done (2026-06): Edited src/components/onboarding/IntroStep.jsx (serif Cormorant Garamond headline, italic subline, divider, unified points card, refined CTA) + index.html (Google Font link). Deliverables in /app/pomi_welcome_polish (files + welcome-polish.patch). Verified: lint, vite build, harness render desktop/mobile, CTA click advances.
 Backlog: PublicHeader mobile wrapping (shared component, out of scope); transparent logo PNG; apply same type scale to later onboarding steps.
+Preview fix (2026-06): /app/frontend now renders the welcome screen with a Before/After toggle (src/pomi/*, App.js) for viewing only; not for the Pomi repo. Tested: iteration_1 100%.

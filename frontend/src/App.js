@@ -14,7 +14,7 @@ const NextStep = ({ onBack }) => (
 );
 
 const VersionToggle = ({ version, setVersion }) => (
-  <div data-testid="preview-version-toggle" className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 gap-1 rounded-full bg-slate-900/85 p-1 text-xs text-white shadow-lg">
+  <div data-testid="preview-version-toggle" className="fixed top-24 left-1/2 z-50 flex -translate-x-1/2 gap-1 rounded-full bg-slate-900/85 p-1 text-xs text-white shadow-lg">
     {["before", "after"].map((v) => (
       <button
         key={v}
