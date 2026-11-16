@@ -4,3 +4,4 @@ Done (2026-06): Edited src/components/onboarding/IntroStep.jsx (serif Cormorant 
 Backlog: PublicHeader mobile wrapping (shared component, out of scope); transparent logo PNG; apply same type scale to later onboarding steps.
 Preview fix (2026-06): /app/frontend now renders the welcome screen with a Before/After toggle (src/pomi/*, App.js) for viewing only; not for the Pomi repo. Tested: iteration_1 100%.
 Iteration 2 (2026-06): mobile header tidy (About/Contact hidden <sm, in footer), onboarding steps serif+refined buttons via onboarding/styles.js, transparent logo. Deliverables refreshed in /app/pomi_welcome_polish (pomi-polish.patch). Preview uses MOCKED base44 client.
+Iteration 3 (2026-06): AuthLayout/Login/ForgotPassword serif polish, About/Contact typography+spacing, StepProgress bar. Patch refreshed.

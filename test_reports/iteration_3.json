@@ -1,0 +1,24 @@
+{
+  "summary": "Frontend-only test of the sign-in polish, About/Contact polish and the onboarding progress bar, on desktop (1920x1080) and mobile (390x844). All requested features pass. No page errors. /login: h1 'Welcome back' is Cormorant Garamond. A 40x1px rose divider (rgb 208,170,177) sits under it. The 3 social buttons are white, 48px, radius 9999 and have a pomegranate-200 border. 'Log in' is 56px, radius 9999 and filled rgb(135,92,102). The card is a cream/white 70% card with radius 16. 'Forgot password?' goes to /forgot-password. Logging in with a TEST_ email and password redirects to '/', which shows the welcome screen of the onboarding questionnaire (the mock user has no tracking_focus), and 'Start with Pomi' leads to Step 1. /forgot-password: h1 'Reset password' is serif. Submitting shows the 'If an account exists...' message, and 'Back to log in' goes to /login. /about: the h1 is serif on a solid rgb(109,75,84) hero with no gradient. All 5 h2s (3 pillars, 'What Pomi tracks', 'The causes we support') are serif. All 7 cause chips render. The Contact link goes to /contact. scrollWidth is 390 on mobile. /contact: h1 'Talk to the Pomi team' is serif. On mobile the cards stack (same x=24, w=342) and scrollWidth is 390. Submitting shows 'Message sent', 'Send another message' brings back an empty form, and an empty submit is blocked by required validation. Progress bar: Step 1 is aria-valuenow=1 with a 33% fill, Step 2 is 2/67%, Step 3 is 3/100%, and Back to Step 2 shows 67%. The bar is 3px tall and the 'Step X of 3' label sits right above it. Regression: the full flow (Menstrual cycles, All of the above, Google, menstruating step, Finish) reaches preview-onboarding-complete. Before shows the sans-serif original screen and After shows the serif 'Welcome to Pomi'.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Mobile onboarding steps (preview tooling only)", "issues": ["The Before/After toggle is now at fixed top-20 right-3. On a 390px screen it overlaps the area to the right of the logo and 'STEP 1 OF 3' label, and the top-right of the account card on Step 3. It no longer covers the CTA, but it still covers content. This affects the preview only."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Login, ForgotPassword, About, Contact and AuthLayout have no data-testid attributes on their inputs, buttons, links or success messages ('Message sent', reset confirmation). Tests had to use ids, roles and text. Please add data-testid attributes (for example login-submit-button, forgot-password-link, contact-submit-button, contact-success).",
+    "Login error box and Contact error <p> have no role='alert', so screen readers won't announce errors.",
+    "Login 'Create one' links to /register, which is not routed in the preview and falls back to the welcome screen. This is expected in the preview, as noted."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100%"},
+  "seed_data_creation": "none (localStorage only; cleared before runs)",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "The Base44 client is mocked in localStorage (pomi_preview_user, pomi_onboarding_draft). Clear localStorage before runs. Selectors: login uses #email and #password with the button role 'Log in' (exact). Forgot password uses #email and 'Send reset link'. Contact uses #contact-name, #contact-email, #contact-message and 'Send message'. Onboarding uses [data-testid=onboarding-progress], and its first child is the fill. Login lands on '/', which shows the questionnaire welcome screen; click 'Start with Pomi' (last match) to get to Step 1."
+}
