@@ -1,0 +1,26 @@
+{
+  "summary": "Frontend-only test of the Pomi design polish on mobile (390x844) and desktop (1920x1080). All 6 requested features pass. (1) Mobile header: logo, 'Pomi', 'Sign in' and the 'Start with Pomi' pill sit on one 61px row. About/Contact are display:none in the header and shown in the footer. scrollWidth is 390, so no overflow. On desktop all 4 links show. (2) The logo PNG is RGBA with a transparent corner (alpha 0), and no square is visible in the header, welcome screen or steps. (3) The full After flow works. Step 1, 2, 3 and 4 headings are Cormorant Garamond (36px mobile, 44px desktop). Continue is disabled before any selection. 'All of the above' selects all 7 causes. Back works. The social buttons stay disabled until a name is typed. Google reloads to '/', the mocked restore runs, and 'Are you currently menstruating?' shows. The switch opens 12 calendar months, and selecting a day shows '1 day selected'. Finish shows preview-onboarding-complete with correct localStorage data, and Start over resets. (4) The email path (Create account) shows the serif 'Verify your email' OTP screen. Verify reloads and continues to the menstruating step. (5) The Before/After toggle works, and Before shows the original sans-serif welcome screen. (6) Continue, Finish and Create account are 56px tall, radius 9999px and filled pomegranate-700. Back buttons are transparent outline pills. No console or page errors.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Mobile welcome and all steps (preview tooling)", "issues": ["The handoff note says the Before/After toggle moved to 'fixed top-20 right-3', but App.js VersionToggle still uses 'fixed bottom-4 right-4'. On mobile it covers the right part of the welcome CTA (toggle y=792-828, CTA y=770-826) and the Step 1 cards and calendar. This affects the preview only, but the intended change was not applied."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Apply the planned toggle move in /app/frontend/src/App.js: change 'fixed bottom-4 right-4' to 'fixed top-20 right-3' (or similar) so it stops covering the mobile CTA"
+  ],
+  "critical_code_review_comments": [
+    "SymptomHistoryStep Back goes to step 2. After an account already exists (post-OAuth restore), Back then Continue returns to the AccountStep and asks the user to create an account again. Consider hiding Back, or going to step 2 and skipping the account step on the way forward.",
+    "The OTP screen has no Back or 'change email' option, so a user who mistypes their email is stuck there. This is pre-existing in the flow logic.",
+    "The onboarding step buttons and cards have no data-testid attributes (Continue, Back, Finish, ChoiceCard, social buttons, name/email inputs). Tests had to use role and text selectors."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100%"},
+  "seed_data_creation": "none (localStorage only, cleared during tests)",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Preview only; Base44 is mocked via localStorage (pomi_preview_user, pomi_onboarding_draft). Clear localStorage before each run. The welcome reveal takes about 1.5s. Steps have no testids, so use get_by_role button names: 'Menstrual cycles', 'Continue', 'All of the above', 'Back', 'Continue with Google', 'Create account', 'Verify and continue', 'Finish'. The name input is #name. The switch is [role=switch]."
+}
