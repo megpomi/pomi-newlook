@@ -1,0 +1,157 @@
+diff --git a/index.html b/index.html
+index ada215d..ea504ed 100644
+--- a/index.html
++++ b/index.html
+@@ -5,6 +5,9 @@
+     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M24 45C14.6 45 8 38.6 8 29.4 8 18.6 15.2 11 24 11s16 7.6 16 18.4C40 38.6 33.4 45 24 45Z' fill='%23c92a4d'/><path d='M19.5 9.4 22 3l2 4 2-4 2.5 6.4c-1.5.8-3 1.2-4.5 1.2s-3-.4-4.5-1.2Z' fill='%23a91e3f'/><g fill='%23fbe3e7'><circle cx='18' cy='27' r='2.2'/><circle cx='24' cy='23' r='2.2'/><circle cx='30' cy='27' r='2.2'/><circle cx='21' cy='34' r='2.2'/><circle cx='27' cy='34' r='2.2'/><circle cx='24' cy='30' r='2.2'/></g></svg>" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <link rel="manifest" href="/manifest.json" />
++    <link rel="preconnect" href="https://fonts.googleapis.com" />
++    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
++    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" />
+     <title>Pomi — Period tracking that gives back</title>
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4214672773373438" crossorigin="anonymous"></script>
+   </head>
+diff --git a/src/components/onboarding/IntroStep.jsx b/src/components/onboarding/IntroStep.jsx
+index 13932a4..5941c08 100644
+--- a/src/components/onboarding/IntroStep.jsx
++++ b/src/components/onboarding/IntroStep.jsx
+@@ -7,6 +7,23 @@ import pomiLogo from "@/assets/pomi-logo.png";
+ import PublicHeader from "@/components/PublicHeader";
+ import PublicFooter from "@/components/PublicFooter";
+ 
++const SERIF = { fontFamily: '"Cormorant Garamond", "Cormorant", Georgia, serif' };
++
++const POINTS = [
++  {
++    Icon: Heart,
++    text: "Our purpose is built on the simple idea that every cycle is powerful and can be used for good.",
++  },
++  {
++    Icon: Droplet,
++    text: "Your data powers personalised health insights.",
++  },
++  {
++    Icon: Navigation,
++    text: "Your account generates trackable donations made to charitable causes important to you.",
++  },
++];
++
+ export default function IntroStep({ onStart }) {
+   const [revealed, setRevealed] = useState(false);
+ 
+@@ -19,8 +36,8 @@ export default function IntroStep({ onStart }) {
+     <div className="flex min-h-screen flex-col bg-background">
+       <PublicHeader />
+ 
+-      <main className="flex flex-1 items-center justify-center px-5 py-10">
+-        <div className="w-full max-w-xl">
++      <main className="flex flex-1 items-center justify-center px-6 py-14 sm:px-8 sm:py-24">
++        <div className="w-full max-w-[30rem]" data-testid="onboarding-welcome">
+           <motion.div layout className="flex flex-col items-center text-center">
+             <motion.div
+               layout
+@@ -29,7 +46,7 @@ export default function IntroStep({ onStart }) {
+               <Image
+                 src={pomiLogo}
+                 alt="Pomi"
+-                className={revealed ? "h-24 w-24" : "h-40 w-40"}
++                className={revealed ? "h-16 w-16 sm:h-20 sm:w-20" : "h-36 w-36"}
+                 fittingType="fit"
+               />
+             </motion.div>
+@@ -38,14 +55,25 @@ export default function IntroStep({ onStart }) {
+               <motion.div
+                 initial={{ opacity: 0, y: 10 }}
+                 animate={{ opacity: 1, y: 0 }}
+-                transition={{ duration: 0.5, delay: 0.15 }}
++                transition={{ duration: 0.6, delay: 0.15 }}
++                className="flex flex-col items-center"
+               >
+-                <h1 className="mt-4 font-heading text-3xl font-semibold text-slate-800">
++                <h1
++                  style={SERIF}
++                  className="mt-8 text-[2.75rem] font-medium leading-[1.05] tracking-[-0.01em] text-pomegranate-900 sm:text-[3.5rem]"
++                >
+                   Welcome to Pomi
+                 </h1>
+-                <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-500">
+-                  As in the pomegranate - Symbolic of health, abundance and natural
+-                  cycles.
++                <span
++                  aria-hidden="true"
++                  className="mt-6 h-px w-12 bg-pomegranate-300"
++                />
++                <p
++                  style={SERIF}
++                  className="mt-6 max-w-sm text-xl italic leading-snug text-pomegranate-800/80 sm:text-[1.375rem]"
++                >
++                  As in the pomegranate — symbolic of health, abundance and
++                  natural cycles.
+                 </p>
+               </motion.div>
+             )}
+@@ -55,37 +83,31 @@ export default function IntroStep({ onStart }) {
+             <motion.div
+               initial={{ opacity: 0, y: 14 }}
+               animate={{ opacity: 1, y: 0 }}
+-              transition={{ duration: 0.5, delay: 0.3 }}
++              transition={{ duration: 0.6, delay: 0.3 }}
+             >
+-              <div className="mt-6 space-y-3">
+-                <div className="flex items-start gap-3 rounded-2xl border border-pomegranate-100 bg-white p-5">
+-                  <Heart className="mt-0.5 h-5 w-5 shrink-0 fill-pomegranate-400 text-pomegranate-400" />
+-                  <p className="text-sm leading-relaxed text-slate-600">
+-                    Our purpose is built on the simple idea that every cycle is
+-                    powerful and can be used for good.
+-                  </p>
+-                </div>
+-                <div className="flex items-start gap-3 rounded-2xl border border-pomegranate-100 bg-white p-5">
+-                  <Droplet className="mt-0.5 h-5 w-5 shrink-0 fill-pomegranate-400 text-pomegranate-400" />
+-                  <p className="text-sm leading-relaxed text-slate-600">
+-                    Your data powers personalised health insights.
+-                  </p>
+-                </div>
+-                <div className="flex items-start gap-3 rounded-2xl border border-pomegranate-100 bg-white p-5">
+-                  <Navigation className="mt-0.5 h-5 w-5 shrink-0 fill-pomegranate-400 text-pomegranate-400" />
+-                  <p className="text-sm leading-relaxed text-slate-600">
+-                    Your account generates trackable donations made to charitable
+-                    causes important to you.
+-                  </p>
+-                </div>
+-              </div>
++              <ul className="mt-12 divide-y divide-pomegranate-100 rounded-2xl border border-pomegranate-100 bg-white/70 px-6 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] sm:px-7">
++                {POINTS.map(({ Icon, text }) => (
++                  <li key={text} className="flex items-start gap-4 py-5">
++                    <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-pomegranate-50 ring-1 ring-pomegranate-100">
++                      <Icon
++                        className="h-3.5 w-3.5 text-pomegranate-600"
++                        strokeWidth={1.75}
++                      />
++                    </span>
++                    <p className="text-[0.9375rem] leading-relaxed text-slate-600">
++                      {text}
++                    </p>
++                  </li>
++                ))}
++              </ul>
+ 
+               <Button
+                 onClick={onStart}
+-                className="mt-6 w-full rounded-full bg-pomegranate-600 py-6 text-base hover:bg-pomegranate-700"
++                data-testid="onboarding-start-button"
++                className="group mt-10 h-14 w-full rounded-full bg-pomegranate-700 text-[0.9375rem] font-medium tracking-[0.02em] text-white shadow-[0_10px_28px_-12px_rgba(109,75,84,0.55)] transition-[background-color,box-shadow,transform] duration-200 hover:bg-pomegranate-800 hover:shadow-[0_14px_32px_-12px_rgba(109,75,84,0.6)] focus-visible:ring-2 focus-visible:ring-pomegranate-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.99]"
+               >
+                 Start with Pomi
+-                <ArrowRight className="ml-2 h-4 w-4" />
++                <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+               </Button>
+             </motion.div>
+           )}
+@@ -95,4 +117,4 @@ export default function IntroStep({ onStart }) {
+       <PublicFooter />
+     </div>
+   );
+-}
+\ No newline at end of file
++}
