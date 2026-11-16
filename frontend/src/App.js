@@ -7,6 +7,9 @@ import Register from "@/pages/Register";
 import ForgotPassword from "@/pages/ForgotPassword";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
+import Profile from "@/pages/Profile";
+import LogToday from "@/pages/LogToday";
+import { Toaster } from "@/components/ui/toaster";
 import PomiLoader from "@/components/PomiLoader";
 import IntroStepOriginal from "@/pomi/IntroStepOriginal";
 import { resetPreview, previewAsSignedIn } from "@/api/base44Client";
@@ -98,6 +101,8 @@ const PreviewPages = () => {
       <Route path="/forgot-password" element={<WithMenu><ForgotPassword /></WithMenu>} />
       <Route path="/about" element={<WithMenu><About /></WithMenu>} />
       <Route path="/contact" element={<WithMenu><Contact /></WithMenu>} />
+      <Route path="/profile" element={<WithMenu><Profile /></WithMenu>} />
+      <Route path="/log-today" element={<WithMenu><LogToday /></WithMenu>} />
       <Route path="/preview-loader" element={<WithMenu><PomiLoader /></WithMenu>} />
       <Route path="*" element={<Welcome />} />
     </Routes>
@@ -109,6 +114,7 @@ function App() {
     <div className="pomi-theme">
       <BrowserRouter>
         <PreviewPages />
+        <Toaster />
       </BrowserRouter>
     </div>
   );

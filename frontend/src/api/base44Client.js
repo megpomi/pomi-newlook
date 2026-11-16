@@ -46,7 +46,7 @@ export const base44 = {
     me: async () => {
       const u = read();
       if (!u) throw new Error("not signed in");
-      return { id: "preview-user", ...u };
+      return { id: "preview-user", email: "alex@example.com", ...u };
     },
     updateMe: async (data) => write({ ...(read() || {}), ...data }),
     register: async () => {},
@@ -58,6 +58,8 @@ export const base44 = {
     resendOtp: async () => {},
     loginViaEmailPassword: async () => write(read() || {}),
     resetPasswordRequest: async () => {},
+    changePassword: async () => {},
+    resetPassword: async () => {},
     logout: () => {
       resetPreview();
       window.location.href = "/";

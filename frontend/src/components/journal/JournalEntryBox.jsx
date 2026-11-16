@@ -32,7 +32,7 @@ export default function JournalEntryBox({
             {theme.label}
           </span>
         </div>
-        <p className="mt-3 font-heading text-lg leading-snug text-slate-800">
+        <p className="mt-3 font-serif text-2xl italic leading-snug text-pomegranate-900">
           {prompt}
         </p>
       </div>

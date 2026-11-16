@@ -117,7 +117,7 @@ export default function VoiceNoteRecorder({ fileUri, onChange }) {
         <button
           type="button"
           onClick={stop}
-          className="inline-flex items-center gap-2 rounded-full bg-pomegranate-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-pomegranate-700"
+          className="inline-flex items-center gap-2 rounded-full bg-pomegranate-700 px-5 py-2.5 text-sm font-medium text-white shadow-[0_8px_20px_-12px_rgba(109,75,84,0.55)] hover:bg-pomegranate-800"
         >
           <Square className="h-4 w-4" />
           Stop recording · {clock(seconds)}

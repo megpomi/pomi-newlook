@@ -82,12 +82,12 @@ export default function Profile() {
   if (!user) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-background px-6 text-center">
-        <p className="font-heading text-xl font-semibold text-slate-700">
+        <p className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
           We couldn't load your profile.
         </p>
         <Link
           to="/"
-          className="text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
+          className="text-sm font-medium text-pomegranate-700 underline-offset-4 hover:underline"
         >
           Back to my dashboard
         </Link>
@@ -102,19 +102,19 @@ export default function Profile() {
       <AppHeader maxWidth="max-w-3xl">
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
+          className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-pomegranate-700 transition-colors hover:bg-pomegranate-50 hover:text-pomegranate-800"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to my dashboard
         </Link>
       </AppHeader>
 
-      <main className="mx-auto max-w-3xl px-5 py-8 sm:px-8 sm:py-12">
-        <h1 className="font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
+      <main className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-16">
+        <h1 className="font-serif text-[2.5rem] font-medium leading-[1.1] tracking-[-0.01em] text-pomegranate-900 sm:text-[3.25rem]">
           Your profile
         </h1>
 
-        <div className="mt-8 space-y-6">
+        <div className="mt-10 space-y-6">
           <ProfileNameForm
             user={user}
             onSaved={(name) =>
@@ -136,7 +136,7 @@ export default function Profile() {
         <Button
           onClick={handleSave}
           disabled={!canSave}
-          className="mt-8 w-full rounded-full bg-pomegranate-600 py-6 text-base hover:bg-pomegranate-700"
+          className="mt-10 w-full h-14 rounded-full bg-pomegranate-700 text-[0.9375rem] font-medium tracking-[0.02em] text-white shadow-[0_10px_28px_-12px_rgba(109,75,84,0.55)] transition-colors hover:bg-pomegranate-800 disabled:opacity-40 disabled:shadow-none"
         >
           {saving ? "Saving…" : "Save preferences"}
         </Button>
@@ -149,7 +149,7 @@ export default function Profile() {
         <button
           type="button"
           onClick={handleLogout}
-          className="mx-auto mt-8 block text-sm font-medium text-slate-500 hover:text-pomegranate-600"
+          className="mx-auto mt-10 block rounded-full px-4 py-2 text-sm font-medium text-pomegranate-700 transition-colors hover:bg-pomegranate-50"
         >
           Log out
         </button>

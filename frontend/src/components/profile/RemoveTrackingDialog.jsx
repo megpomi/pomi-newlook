@@ -19,7 +19,7 @@ export default function RemoveTrackingDialog({ option, open, onOpenChange, onCon
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="rounded-3xl border-slate-100 sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="font-heading text-xl font-semibold text-slate-800">
+          <DialogTitle className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
             {removal?.title || `Stop tracking ${option?.label || "this"}?`}
           </DialogTitle>
           <DialogDescription className="text-sm text-slate-500">
@@ -53,7 +53,7 @@ export default function RemoveTrackingDialog({ option, open, onOpenChange, onCon
           </Button>
           <Button
             onClick={onConfirm}
-            className="w-full rounded-full bg-pomegranate-600 hover:bg-pomegranate-700"
+            className="w-full rounded-full bg-pomegranate-700 font-medium text-white hover:bg-pomegranate-800"
           >
             Turn it off
           </Button>

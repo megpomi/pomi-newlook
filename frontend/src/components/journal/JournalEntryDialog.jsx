@@ -41,9 +41,9 @@ export default function JournalEntryDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[85vh] max-w-lg overflow-y-auto rounded-3xl border-slate-100 bg-white p-6">
+      <DialogContent className="max-h-[85vh] max-w-lg overflow-y-auto rounded-3xl border-pomegranate-100 bg-[#fdfbf8] p-6">
         <DialogHeader>
-          <DialogTitle className="font-heading text-lg font-semibold text-slate-800">
+          <DialogTitle className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
             Your journal entry
           </DialogTitle>
           <DialogDescription className="text-sm text-slate-500">
@@ -60,7 +60,7 @@ export default function JournalEntryDialog({
               {theme.label}
             </span>
           </div>
-          <p className="mt-2 font-heading text-base leading-snug text-slate-800">
+          <p className="mt-2 font-serif text-xl italic leading-snug text-pomegranate-900">
             {prompt}
           </p>
         </div>

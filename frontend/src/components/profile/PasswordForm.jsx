@@ -48,10 +48,10 @@ export default function PasswordForm({ user }) {
   };
 
   return (
-    <section className="rounded-3xl border border-pomegranate-100 bg-white p-5 sm:p-6">
+    <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-5 sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="font-heading text-lg font-semibold text-slate-800">
+          <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
             Password
           </h2>
           <p className="mt-1 text-sm text-slate-500">
@@ -120,7 +120,7 @@ export default function PasswordForm({ user }) {
         <Button
           type="submit"
           disabled={!canSave}
-          className="rounded-full bg-pomegranate-600 px-5 hover:bg-pomegranate-700"
+          className="rounded-full bg-pomegranate-700 px-5 font-medium text-white shadow-[0_8px_20px_-12px_rgba(109,75,84,0.55)] transition-colors hover:bg-pomegranate-800"
         >
           {saving ? "Updating…" : "Update password"}
         </Button>

@@ -200,18 +200,18 @@ export default function LogToday() {
       <AppHeader maxWidth="max-w-2xl">
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
+          className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-pomegranate-700 transition-colors hover:bg-pomegranate-50 hover:text-pomegranate-800"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to my dashboard
         </Link>
       </AppHeader>
 
-      <main className="mx-auto max-w-2xl px-5 py-8 sm:px-8 sm:py-12">
-        <h1 className="font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
+      <main className="mx-auto max-w-2xl px-5 py-10 sm:px-8 sm:py-16">
+        <h1 className="font-serif text-[2.5rem] font-medium leading-[1.1] tracking-[-0.01em] text-pomegranate-900 sm:text-[3.25rem]">
           {isToday ? "How are you today?" : "Edit this day"}
         </h1>
-        <p className="mt-2 text-sm text-slate-500">
+        <p className="mt-3 font-serif text-xl italic text-pomegranate-800/80 sm:text-[1.375rem]">
           It's the {format(new Date(`${date}T00:00:00`), "EEEE d MMMM")}
         </p>
 
@@ -220,9 +220,9 @@ export default function LogToday() {
             <Loader2 className="h-5 w-5 animate-spin text-pomegranate-400" />
           </div>
         ) : (
-          <div className="mt-6 space-y-6">
-            <section className="rounded-3xl border border-slate-100 bg-white p-5 sm:p-6">
-              <p className="text-sm text-slate-500">
+          <div className="mt-10 space-y-6">
+            <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
+              <p className="text-sm leading-relaxed text-slate-500">
                 Log your mood and lifestyle choices for today
               </p>
               <div className="mt-5 space-y-6">
@@ -278,11 +278,11 @@ export default function LogToday() {
             </section>
 
             {showCycle && (
-              <section className="rounded-3xl border border-slate-100 bg-white p-5 sm:p-6">
-                <h2 className="font-heading text-xl font-semibold text-slate-800">
+              <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
+                <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
                   Menstrual cycles
                 </h2>
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-2 text-sm leading-relaxed text-slate-500">
                   Log today as a period day or simply track today's cycle
                   symptoms.
                 </p>
@@ -322,11 +322,11 @@ export default function LogToday() {
             )}
 
             {tracksWellbeing && (
-              <section className="rounded-3xl border border-slate-100 bg-white p-5 sm:p-6">
-                <h2 className="font-heading text-xl font-semibold text-slate-800">
+              <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
+                <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
                   General wellbeing
                 </h2>
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-2 text-sm leading-relaxed text-slate-500">
                   Take a quiet moment to reflect on today, maybe using today's
                   journal prompt if you need.
                 </p>
@@ -351,7 +351,7 @@ export default function LogToday() {
             <Button
               onClick={save}
               disabled={saving}
-              className="w-full rounded-full bg-pomegranate-600 py-6 text-base hover:bg-pomegranate-700"
+              className="w-full h-14 rounded-full bg-pomegranate-700 text-[0.9375rem] font-medium tracking-[0.02em] text-white shadow-[0_10px_28px_-12px_rgba(109,75,84,0.55)] transition-colors hover:bg-pomegranate-800 disabled:opacity-40 disabled:shadow-none"
             >
               {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Save entry

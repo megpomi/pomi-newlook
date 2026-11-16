@@ -51,10 +51,10 @@ export default function NotificationPreferences({
     });
 
   return (
-    <section className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
+    <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
       <div className="flex items-center gap-2">
         <Bell className="h-4 w-4 text-pomegranate-400" />
-        <h2 className="font-heading text-lg font-semibold text-slate-800">
+        <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
           Notifications
         </h2>
       </div>

@@ -20,6 +20,12 @@ import ReminderBell from "@/components/reminders/ReminderBell";
 import { useReminders } from "@/hooks/use-reminders";
 import useIsSubscriber from "@/hooks/use-is-subscriber";
 
+// Dashboard cards fade up one after another on load.
+const enter = (step) => ({
+  className: "motion-safe:animate-fade-up",
+  style: { animationDelay: `${step * 90}ms` },
+});
+
 // Reminders that are about logging a period still open the calendar.
 const PERIOD_REMINDERS = ["first_log", "period_due"];
 
@@ -149,7 +155,7 @@ export default function Home() {
 
       <main className="mx-auto max-w-5xl px-5 py-10 sm:px-8 sm:py-16">
         {/* Greeting */}
-        <div className="mb-10">
+        <div className={`mb-10 ${enter(0).className}`} style={enter(0).style}>
           <h1 className="font-serif text-[2.5rem] font-medium leading-[1.1] tracking-[-0.01em] text-pomegranate-900 sm:text-[3.25rem]">
             Hello{firstName ? `, ${firstName}` : logs.length ? "" : ", welcome"}
           </h1>
@@ -164,31 +170,35 @@ export default function Home() {
 
         {/* Reminder */}
         {reminders.length > 0 && (
-          <ReminderBanner
-            reminder={reminders[0]}
-            onDismiss={dismiss}
-            onLogPeriod={openFromReminder}
-          />
+          <div {...enter(1)}>
+            <ReminderBanner
+              reminder={reminders[0]}
+              onDismiss={dismiss}
+              onLogPeriod={openFromReminder}
+            />
+          </div>
         )}
 
         {/* Daily journalling prompt for general wellbeing tracking */}
         {tracksWellbeing && (
-          <div className="mb-6">
+          <div className={`mb-6 ${enter(1).className}`} style={enter(1).style}>
             <JournalPrompt dateKey={format(new Date(), "yyyy-MM-dd")} />
           </div>
         )}
 
         {/* Status */}
-        <CycleStatus logs={logs} />
+        <div {...enter(2)}>
+          <CycleStatus logs={logs} />
+        </div>
 
         {/* Stats */}
-        <div className="mt-6">
+        <div className={`mt-6 ${enter(3).className}`} style={enter(3).style}>
           <CycleStats logs={logs} />
         </div>
 
         {/* Grid */}
         <div className="mt-6 grid gap-6 lg:grid-cols-5">
-          <div className="space-y-6 lg:col-span-3">
+          <div className={`space-y-6 lg:col-span-3 ${enter(4).className}`} style={enter(4).style}>
             <CalendarPanel
               logs={logs}
               dailyLogs={dailyLogs}
@@ -215,13 +225,13 @@ export default function Home() {
 
             <CyclePatterns logs={logs} dailyLogs={dailyLogs} />
           </div>
-          <div className="lg:col-span-2">
+          <div className={`lg:col-span-2 ${enter(5).className}`} style={enter(5).style}>
             <CharityImpact />
           </div>
         </div>
 
         {/* Donations */}
-        <div className="mt-6">
+        <div className={`mt-6 ${enter(6).className}`} style={enter(6).style}>
           <DonationTracker user={user} />
         </div>
 
