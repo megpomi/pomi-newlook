@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PomiLoader from "@/components/PomiLoader";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowLeft, Sparkles } from "lucide-react";
@@ -99,9 +100,7 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
 
   if (restoring) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-background">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-pomegranate-100 border-t-pomegranate-600" />
-      </div>
+      <PomiLoader />
     );
   }
 

@@ -48,6 +48,7 @@ module.exports = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
+        symptom: 'hsl(var(--symptom))',
         pomegranate: {
           50: '#f7f1f2', 100: '#efe1e3', 200: '#e2c9cd', 300: '#d0aab1', 400: '#c0989f',
           500: '#b7888f', 600: '#a1707a', 700: '#875c66', 800: '#6d4b54', 900: '#593e46'
@@ -60,7 +61,14 @@ module.exports = {
           '5': 'hsl(var(--chart-5))'
         }
       },
+      fontFamily: {
+        serif: ['"Cormorant Garamond"', '"Cormorant"', 'Georgia', 'serif']
+      },
       keyframes: {
+        'soft-fade': {
+          '0%, 100%': { opacity: '0.35', transform: 'scale(0.97)' },
+          '50%': { opacity: '1', transform: 'scale(1)' }
+        },
         'accordion-down': {
           from: {
             height: '0'
@@ -79,6 +87,7 @@ module.exports = {
         }
       },
       animation: {
+        'soft-fade': 'soft-fade 2.4s ease-in-out infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out'
       }

@@ -12,6 +12,29 @@ index ada215d..ea504ed 100644
      <title>Pomi — Period tracking that gives back</title>
      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4214672773373438" crossorigin="anonymous"></script>
    </head>
+diff --git a/src/App.jsx b/src/App.jsx
+index 8c161db..7d79f10 100644
+--- a/src/App.jsx
++++ b/src/App.jsx
+@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
+ import PageNotFound from './lib/PageNotFound';
+ import { AuthProvider, useAuth } from '@/lib/AuthContext';
+ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
++import PomiLoader from '@/components/PomiLoader';
+ import ScrollToTop from './components/ScrollToTop';
+ import ProtectedRoute from '@/components/ProtectedRoute';
+ import Login from '@/pages/Login';
+@@ -30,9 +31,7 @@ const AuthenticatedApp = () => {
+   // Show loading spinner while checking app public settings or auth
+   if (isLoadingPublicSettings || isLoadingAuth) {
+     return (
+-      <div className="fixed inset-0 flex items-center justify-center">
+-        <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
+-      </div>
++      <PomiLoader />
+     );
+   }
+ 
 diff --git a/src/assets/pomi-logo.png b/src/assets/pomi-logo.png
 index 6d71e01fb7daeee3a1691d9f3bb2b6f138bd459f..c840fc5f13af1300c62a01e67bedd24dd8ed5a00 100644
 GIT binary patch
@@ -3308,11 +3331,128 @@ index 0943161..691938f 100644
          )}
        </div>
      </div>
+diff --git a/src/components/CharityImpact.jsx b/src/components/CharityImpact.jsx
+index 86e1721..428e05b 100644
+--- a/src/components/CharityImpact.jsx
++++ b/src/components/CharityImpact.jsx
+@@ -7,7 +7,7 @@ import ContributionDays from "@/components/ContributionDays";
+ export default function CharityImpact() {
+   const featured = featuredCauses();
+   return (
+-    <div className="overflow-hidden rounded-3xl border border-pomegranate-100 bg-gradient-to-br from-pomegranate-500 to-pomegranate-800 p-8 text-white sm:p-10">
++    <div className="overflow-hidden rounded-3xl bg-pomegranate-800 p-8 text-white sm:p-10">
+       <Link to="/mission" className="group mb-6 inline-flex items-center gap-2">
+         <Heart className="h-4 w-4 fill-white/80" />
+         <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/80 group-hover:text-white">
+@@ -16,7 +16,7 @@ export default function CharityImpact() {
+         <ArrowRight className="h-3.5 w-3.5 text-white/60 transition-transform group-hover:translate-x-0.5" />
+       </Link>
+ 
+-      <h3 className="font-heading text-2xl font-semibold leading-snug sm:text-3xl">
++      <h3 className="font-serif text-3xl font-medium leading-tight sm:text-[2.5rem]">
+         Every day you track helps fund important causes.
+       </h3>
+       <p className="mt-3 max-w-md text-sm leading-relaxed text-white/85">
+@@ -25,7 +25,7 @@ export default function CharityImpact() {
+         and LGBTQ+ in a range of health areas.
+       </p>
+ 
+-      <div className="mt-7 rounded-2xl bg-white/15 p-5 backdrop-blur-sm">
++      <div className="mt-7 rounded-2xl bg-white/10 p-5 ring-1 ring-white/15">
+         <div className="flex items-center justify-between gap-2">
+           <p className="text-xs uppercase tracking-wider text-white/70">
+             Your contribution
+diff --git a/src/components/CycleStatus.jsx b/src/components/CycleStatus.jsx
+index 7560e54..1be954e 100644
+--- a/src/components/CycleStatus.jsx
++++ b/src/components/CycleStatus.jsx
+@@ -57,7 +57,7 @@ export default function CycleStatus({ logs }) {
+       : "—";
+ 
+   return (
+-    <div className="relative overflow-hidden rounded-3xl border border-pomegranate-100/80 bg-gradient-to-br from-pomegranate-50/60 via-white to-white p-8 sm:p-10">
++    <div className="relative overflow-hidden rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-8 sm:p-10">
+       <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-center sm:justify-between">
+         <div className="order-2 sm:order-1">
+           <div className="mb-2 flex items-center gap-2">
+@@ -66,7 +66,7 @@ export default function CycleStatus({ logs }) {
+               {phaseLabel(status.phase)}
+             </span>
+           </div>
+-          <h2 className="font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
++          <h2 className="font-serif text-[2.25rem] font-medium leading-[1.1] text-pomegranate-900 sm:text-5xl">
+             {meta.title}
+           </h2>
+           <p className="mt-2 max-w-xs text-sm text-slate-500">{meta.sub}</p>
+@@ -120,7 +120,7 @@ export default function CycleStatus({ logs }) {
+             <div className="absolute inset-0 flex flex-col items-center justify-center">
+               {status.phase !== "unknown" ? (
+                 <>
+-                  <span className="font-heading text-4xl font-semibold text-slate-800">
++                  <span className="font-serif text-5xl font-medium text-pomegranate-900">
+                     {status.dayOfCycle}
+                   </span>
+                   <span className="text-xs uppercase tracking-widest text-slate-400">
+@@ -146,7 +146,7 @@ function Stat({ icon, label, value, hint }) {
+         <span className="text-xs uppercase tracking-wider">{label}</span>
+       </div>
+       <div className="flex items-baseline gap-1.5">
+-        <span className="font-heading text-xl font-semibold text-slate-700">
++        <span className="font-serif text-2xl font-medium text-pomegranate-900">
+           {value}
+         </span>
+         {hint && <span className="text-xs text-slate-400">{hint}</span>}
+diff --git a/src/components/DonationTracker.jsx b/src/components/DonationTracker.jsx
+index 09309df..d04113d 100644
+--- a/src/components/DonationTracker.jsx
++++ b/src/components/DonationTracker.jsx
+@@ -23,10 +23,10 @@ export default function DonationTracker({ user }) {
+     `from ${money(revenue)} revenue · ${countLabel(count)}`;
+ 
+   return (
+-    <div className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
++    <div className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
+       <div className="mb-1 flex items-center gap-2">
+         <Heart className="h-4 w-4 fill-pomegranate-400 text-pomegranate-400" />
+-        <h2 className="font-heading text-lg font-semibold text-slate-800">
++        <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+           Your donations
+         </h2>
+       </div>
+@@ -40,7 +40,7 @@ export default function DonationTracker({ user }) {
+           <p className="text-xs uppercase tracking-wider text-pomegranate-500">
+             This month
+           </p>
+-          <p className="mt-1 font-heading text-3xl font-semibold text-pomegranate-700">
++          <p className="mt-1 font-serif text-4xl font-medium text-pomegranate-800">
+             {money(totals.thisMonth)}
+           </p>
+           <p className="mt-1 text-xs text-pomegranate-600">
+@@ -48,11 +48,11 @@ export default function DonationTracker({ user }) {
+           </p>
+         </div>
+ 
+-        <div className="rounded-2xl bg-gradient-to-br from-pomegranate-500 to-pomegranate-700 p-5 text-white">
++        <div className="rounded-2xl bg-pomegranate-800 p-5 text-white">
+           <p className="text-xs uppercase tracking-wider text-white/80">
+             All time
+           </p>
+-          <p className="mt-1 font-heading text-3xl font-semibold">
++          <p className="mt-1 font-serif text-4xl font-medium">
+             {money(totals.allTime)}
+           </p>
+           <p className="mt-1 text-xs text-white/80">
 diff --git a/src/components/OnboardingQuestionnaire.jsx b/src/components/OnboardingQuestionnaire.jsx
-index cd2ed2e..3192442 100644
+index cd2ed2e..5f35092 100644
 --- a/src/components/OnboardingQuestionnaire.jsx
 +++ b/src/components/OnboardingQuestionnaire.jsx
-@@ -14,6 +14,18 @@ import ChoiceCard from "@/components/onboarding/ChoiceCard";
+@@ -1,4 +1,5 @@
+ import React, { useEffect, useState } from "react";
++import PomiLoader from "@/components/PomiLoader";
+ import { base44 } from "@/api/base44Client";
+ import { Button } from "@/components/ui/button";
+ import { ArrowRight, ArrowLeft, Sparkles } from "lucide-react";
+@@ -14,6 +15,18 @@ import ChoiceCard from "@/components/onboarding/ChoiceCard";
  import IntroStep from "@/components/onboarding/IntroStep";
  import AccountStep from "@/components/onboarding/AccountStep";
  import SymptomHistoryStep from "@/components/onboarding/SymptomHistoryStep";
@@ -3331,7 +3471,18 @@ index cd2ed2e..3192442 100644
  
  export default function OnboardingQuestionnaire({ draft, onComplete }) {
    const [step, setStep] = useState(0);
-@@ -114,24 +126,25 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
+@@ -87,9 +100,7 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
+ 
+   if (restoring) {
+     return (
+-      <div className="fixed inset-0 flex items-center justify-center bg-background">
+-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-pomegranate-100 border-t-pomegranate-600" />
+-      </div>
++      <PomiLoader />
+     );
+   }
+ 
+@@ -114,24 +125,25 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
    }
  
    return (
@@ -3363,7 +3514,7 @@ index cd2ed2e..3192442 100644
              {isFirst
                ? "Choose what matters to you — this shapes your personalised insights and symptoms predictions and can be updated at any point."
                : "A share of what Pomi earns is donated to these areas - Pick the ones you'd like to support directly, these can be updated at any point."}
-@@ -160,11 +173,11 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
+@@ -160,11 +172,11 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
            )}
          </div>
  
@@ -3377,7 +3528,7 @@ index cd2ed2e..3192442 100644
            >
              <ArrowLeft className="mr-1.5 h-4 w-4" />
              Back
-@@ -172,10 +185,10 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
+@@ -172,10 +184,10 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
            <Button
              onClick={() => setStep(step + 1)}
              disabled={!selected.length}
@@ -3390,6 +3541,50 @@ index cd2ed2e..3192442 100644
            </Button>
          </div>
        </div>
+diff --git a/src/components/PomiLoader.jsx b/src/components/PomiLoader.jsx
+new file mode 100644
+index 0000000..df00271
+--- /dev/null
++++ b/src/components/PomiLoader.jsx
+@@ -0,0 +1,19 @@
++import React from "react";
++import pomiLogo from "@/assets/pomi-logo.png";
++
++export default function PomiLoader() {
++  return (
++    <div
++      role="status"
++      aria-label="Loading"
++      data-testid="pomi-loader"
++      className="fixed inset-0 flex items-center justify-center bg-background"
++    >
++      <img
++        src={pomiLogo}
++        alt=""
++        className="h-14 w-14 animate-soft-fade object-contain motion-reduce:animate-none"
++      />
++    </div>
++  );
++}
+diff --git a/src/components/ProtectedRoute.jsx b/src/components/ProtectedRoute.jsx
+index 6018bc6..fe68f16 100644
+--- a/src/components/ProtectedRoute.jsx
++++ b/src/components/ProtectedRoute.jsx
+@@ -1,12 +1,11 @@
+ import { useEffect } from 'react';
+ import { Outlet } from 'react-router-dom';
++import PomiLoader from '@/components/PomiLoader';
+ import { useAuth } from '@/lib/AuthContext';
+ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+ 
+ const DefaultFallback = () => (
+-  <div className="fixed inset-0 flex items-center justify-center">
+-    <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
+-  </div>
++  <PomiLoader />
+ );
+ 
+ export default function ProtectedRoute({ fallback = <DefaultFallback />, unauthenticatedElement }) {
 diff --git a/src/components/PublicHeader.jsx b/src/components/PublicHeader.jsx
 index 00a7c44..6c929e3 100644
 --- a/src/components/PublicHeader.jsx
@@ -3445,6 +3640,77 @@ index 00a7c44..6c929e3 100644
            >
              <Link to="/">Start with Pomi</Link>
            </Button>
+diff --git a/src/components/calendar/CalendarPanel.jsx b/src/components/calendar/CalendarPanel.jsx
+index eee1e5e..525664a 100644
+--- a/src/components/calendar/CalendarPanel.jsx
++++ b/src/components/calendar/CalendarPanel.jsx
+@@ -114,11 +114,11 @@ export default function CalendarPanel({
+ 
+   return (
+     <div>
+-      <div className="rounded-3xl border border-slate-100 bg-white p-1 sm:p-3">
++      <div className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-1 sm:p-3">
+         {(title || action) && (
+           <div className="flex flex-wrap items-center justify-between gap-3 px-4 pb-1 pt-3">
+             {title && (
+-              <h3 className="font-heading text-lg font-semibold text-slate-800">
++              <h3 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+                 {title}
+               </h3>
+             )}
+diff --git a/src/components/calendar/LoggedDayDetails.jsx b/src/components/calendar/LoggedDayDetails.jsx
+index d75fd22..be0ff7d 100644
+--- a/src/components/calendar/LoggedDayDetails.jsx
++++ b/src/components/calendar/LoggedDayDetails.jsx
+@@ -57,9 +57,9 @@ export default function LoggedDayDetails({
+   const notes = dailyLog?.notes || log?.notes;
+ 
+   return (
+-    <div className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
++    <div className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
+       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+-        <h3 className="font-heading text-lg font-semibold text-slate-800">
++        <h3 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+           {prettyDate(date)}
+         </h3>
+         {cycleDay ? (
+diff --git a/src/components/dashboard/CycleStats.jsx b/src/components/dashboard/CycleStats.jsx
+index 8e5595a..b5f5d51 100644
+--- a/src/components/dashboard/CycleStats.jsx
++++ b/src/components/dashboard/CycleStats.jsx
+@@ -35,8 +35,8 @@ export default function CycleStats({ logs }) {
+   ];
+ 
+   return (
+-    <div className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
+-      <h2 className="font-heading text-lg font-semibold text-slate-800">
++    <div className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
++      <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+         Your cycle stats
+       </h2>
+       <p className="mb-5 text-sm text-slate-500">
+@@ -62,7 +62,7 @@ function StatCard({ icon, label, value, hint }) {
+         <span className="text-xs uppercase tracking-[0.12em]">{label}</span>
+       </div>
+       <div className="flex items-baseline gap-1.5">
+-        <span className="font-heading text-2xl font-semibold text-slate-800">
++        <span className="font-serif text-3xl font-medium text-pomegranate-900">
+           {value == null ? "—" : value}
+         </span>
+         {value != null && (
+diff --git a/src/components/journal/JournalPrompt.jsx b/src/components/journal/JournalPrompt.jsx
+index b7cc093..90aec52 100644
+--- a/src/components/journal/JournalPrompt.jsx
++++ b/src/components/journal/JournalPrompt.jsx
+@@ -25,7 +25,7 @@ export default function JournalPrompt({ dateKey }) {
+               {theme.label}
+             </span>
+           </div>
+-          <p className="mt-3 font-heading text-lg leading-snug text-slate-800 sm:text-xl">
++          <p className="mt-3 font-serif text-2xl italic leading-snug text-pomegranate-900 sm:text-[1.75rem]">
+             {prompt}
+           </p>
+           <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
 diff --git a/src/components/onboarding/AccountStep.jsx b/src/components/onboarding/AccountStep.jsx
 index 99ae956..5f7d705 100644
 --- a/src/components/onboarding/AccountStep.jsx
@@ -3912,6 +4178,69 @@ index 0000000..42d284c
 +export const backButton =
 +  "h-14 rounded-full border-pomegranate-200 bg-transparent px-6 text-[0.9375rem] font-medium text-pomegranate-700 shadow-none transition-colors hover:bg-pomegranate-50 hover:text-pomegranate-800";
 +export const arrowNudge = "ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5";
+diff --git a/src/components/patterns/CyclePatterns.jsx b/src/components/patterns/CyclePatterns.jsx
+index c42e8bd..9fe34d1 100644
+--- a/src/components/patterns/CyclePatterns.jsx
++++ b/src/components/patterns/CyclePatterns.jsx
+@@ -49,12 +49,12 @@ export default function CyclePatterns({ logs, dailyLogs = [] }) {
+   ];
+ 
+   return (
+-    <div className="rounded-3xl border border-slate-100 bg-white p-5 sm:p-6">
++    <div className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-5 sm:p-6">
+       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+         <div>
+           <div className="flex items-center gap-2">
+             <TrendingUp className="h-4 w-4 text-pomegranate-400" />
+-            <h2 className="font-heading text-lg font-semibold text-slate-800">
++            <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+               Your symptom patterns
+             </h2>
+           </div>
+@@ -83,7 +83,7 @@ export default function CyclePatterns({ logs, dailyLogs = [] }) {
+                 key={tile.label}
+                 className="rounded-2xl bg-pomegranate-50/70 px-2 py-3 text-center"
+               >
+-                <p className="font-heading text-lg font-semibold text-pomegranate-700">
++                <p className="font-serif text-2xl font-medium text-pomegranate-800">
+                   {tile.value}
+                 </p>
+                 <p className="mt-0.5 text-[10px] uppercase leading-tight tracking-[0.08em] text-slate-500">
+diff --git a/src/components/reminders/ReminderBanner.jsx b/src/components/reminders/ReminderBanner.jsx
+index 514edd6..7e5837c 100644
+--- a/src/components/reminders/ReminderBanner.jsx
++++ b/src/components/reminders/ReminderBanner.jsx
+@@ -10,9 +10,9 @@ const TONES = {
+     icon: "text-pomegranate-600",
+   },
+   info: {
+-    wrap: "border-slate-200 bg-white",
+-    iconWrap: "bg-slate-100",
+-    icon: "text-slate-500",
++    wrap: "border-pomegranate-100 bg-white/70",
++    iconWrap: "bg-pomegranate-50 ring-1 ring-pomegranate-100",
++    icon: "text-pomegranate-600",
+   },
+ };
+ 
+@@ -41,7 +41,7 @@ export default function ReminderBanner({
+       </span>
+ 
+       <div className="flex-1">
+-        <p className="font-heading text-sm font-semibold text-slate-800 sm:text-base">
++        <p className="text-sm font-medium text-slate-800 sm:text-base">
+           {reminder.title}
+         </p>
+         <p className="mt-0.5 text-sm text-slate-500">{reminder.body}</p>
+@@ -49,7 +49,7 @@ export default function ReminderBanner({
+           <Button
+             size="sm"
+             onClick={() => onLogPeriod(reminder)}
+-            className="mt-3 h-8 rounded-full bg-pomegranate-600 px-4 text-xs hover:bg-pomegranate-700"
++            className="mt-3 h-9 rounded-full bg-pomegranate-700 px-4 text-xs font-medium text-white hover:bg-pomegranate-800"
+           >
+             {reminder.cta}
+           </Button>
 diff --git a/src/pages/About.jsx b/src/pages/About.jsx
 index 149c771..857f94b 100644
 --- a/src/pages/About.jsx
@@ -4163,6 +4492,27 @@ index 3226667..6fc52fc 100644
            Pomi is not a medical device. If you have a health concern, please speak
            to a healthcare professional. In an emergency, contact your local
            emergency services.
+diff --git a/src/pages/DeleteAccount.jsx b/src/pages/DeleteAccount.jsx
+index b3428a0..effcf84 100644
+--- a/src/pages/DeleteAccount.jsx
++++ b/src/pages/DeleteAccount.jsx
+@@ -1,4 +1,5 @@
+ import React, { useEffect, useState } from "react";
++import PomiLoader from "@/components/PomiLoader";
+ import { Link } from "react-router-dom";
+ import { ArrowLeft, AlertTriangle } from "lucide-react";
+ import { base44 } from "@/api/base44Client";
+@@ -60,9 +61,7 @@ export default function DeleteAccount() {
+ 
+   if (loading) {
+     return (
+-      <div className="fixed inset-0 flex items-center justify-center bg-background">
+-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-pomegranate-100 border-t-pomegranate-600" />
+-      </div>
++      <PomiLoader />
+     );
+   }
+ 
 diff --git a/src/pages/ForgotPassword.jsx b/src/pages/ForgotPassword.jsx
 index 31d20a6..63a9230 100644
 --- a/src/pages/ForgotPassword.jsx
@@ -4200,6 +4550,89 @@ index 31d20a6..63a9230 100644
              {loading ? (
                <>
                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+diff --git a/src/pages/Home.jsx b/src/pages/Home.jsx
+index 04b3402..d9fafaf 100644
+--- a/src/pages/Home.jsx
++++ b/src/pages/Home.jsx
+@@ -1,4 +1,5 @@
+ import React, { useState, useEffect, useCallback } from "react";
++import PomiLoader from "@/components/PomiLoader";
+ import { format } from "date-fns";
+ import { base44 } from "@/api/base44Client";
+ import { useToast } from "@/components/ui/use-toast";
+@@ -104,9 +105,7 @@ export default function Home() {
+ 
+   if (checkingProfile) {
+     return (
+-      <div className="fixed inset-0 flex items-center justify-center bg-background">
+-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-pomegranate-100 border-t-pomegranate-600" />
+-      </div>
++      <PomiLoader />
+     );
+   }
+ 
+@@ -123,7 +122,7 @@ export default function Home() {
+           asChild
+           variant="ghost"
+           size="icon"
+-          className="rounded-full text-pomegranate-600 hover:bg-pomegranate-50"
++          className="rounded-full text-pomegranate-700 hover:bg-pomegranate-50 hover:text-pomegranate-800"
+         >
+           <Link to="/profile" aria-label="Your profile">
+             <UserRound className="h-5 w-5" />
+@@ -132,7 +131,7 @@ export default function Home() {
+         <Button
+           asChild
+           variant="outline"
+-          className="rounded-full border-pomegranate-200 px-4 text-pomegranate-600 hover:bg-pomegranate-50"
++          className="rounded-full border-pomegranate-200 bg-transparent text-pomegranate-700 hover:bg-pomegranate-50 hover:text-pomegranate-800 px-4"
+         >
+           <Link to="/upgrade" aria-label="Go ad-free">
+             <Sparkles className="mr-1.5 h-4 w-4" />
+@@ -141,20 +140,20 @@ export default function Home() {
+         </Button>
+         <Button
+           onClick={openLogger}
+-          className="rounded-full bg-pomegranate-600 px-4 hover:bg-pomegranate-700"
++          className="rounded-full bg-pomegranate-700 px-4 font-medium text-white shadow-[0_8px_20px_-12px_rgba(109,75,84,0.55)] transition-colors hover:bg-pomegranate-800"
+         >
+           <Plus className="mr-1.5 h-4 w-4" />
+           {hasHistory ? "Log today" : "Log period"}
+         </Button>
+       </AppHeader>
+ 
+-      <main className="mx-auto max-w-5xl px-5 py-8 sm:px-8 sm:py-12">
++      <main className="mx-auto max-w-5xl px-5 py-10 sm:px-8 sm:py-16">
+         {/* Greeting */}
+-        <div className="mb-8">
+-          <h1 className="font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
++        <div className="mb-10">
++          <h1 className="font-serif text-[2.5rem] font-medium leading-[1.1] tracking-[-0.01em] text-pomegranate-900 sm:text-[3.25rem]">
+             Hello{firstName ? `, ${firstName}` : logs.length ? "" : ", welcome"}
+           </h1>
+-          <p className="mt-1 text-sm text-slate-500">
++          <p className="mt-3 text-[0.9375rem] leading-relaxed text-slate-600">
+             {tracksWellbeing && !tracksCycles
+               ? "Here's your space to check in with yourself today."
+               : logs.length
+@@ -203,7 +202,7 @@ export default function Home() {
+                     asChild
+                     variant="outline"
+                     size="sm"
+-                    className="rounded-full border-pomegranate-200 text-pomegranate-600 hover:bg-pomegranate-50"
++                    className="rounded-full border-pomegranate-200 bg-transparent text-pomegranate-700 hover:bg-pomegranate-50 hover:text-pomegranate-800"
+                   >
+                     <Link to="/calendar?log=1">
+                       <CalendarPlus className="mr-1.5 h-4 w-4" />
+@@ -226,7 +225,7 @@ export default function Home() {
+           <DonationTracker user={user} />
+         </div>
+ 
+-        <p className="mt-10 text-center text-xs text-slate-400">
++        <p className="mt-14 text-center text-xs leading-relaxed text-slate-400">
+           Pomi is not a medical device. For health concerns, please consult a
+           healthcare professional.
+         </p>
 diff --git a/src/pages/Login.jsx b/src/pages/Login.jsx
 index f6f6f7a..f8a4326 100644
 --- a/src/pages/Login.jsx
@@ -4279,3 +4712,146 @@ index f6f6f7a..f8a4326 100644
            {loading ? (
              <>
                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+diff --git a/src/pages/Profile.jsx b/src/pages/Profile.jsx
+index bd2f76c..45ea47c 100644
+--- a/src/pages/Profile.jsx
++++ b/src/pages/Profile.jsx
+@@ -1,4 +1,5 @@
+ import React, { useEffect, useState } from "react";
++import PomiLoader from "@/components/PomiLoader";
+ import { Link } from "react-router-dom";
+ import { ArrowLeft } from "lucide-react";
+ import { base44 } from "@/api/base44Client";
+@@ -74,9 +75,7 @@ export default function Profile() {
+ 
+   if (loading) {
+     return (
+-      <div className="fixed inset-0 flex items-center justify-center bg-background">
+-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-pomegranate-100 border-t-pomegranate-600" />
+-      </div>
++      <PomiLoader />
+     );
+   }
+ 
+diff --git a/src/pages/Register.jsx b/src/pages/Register.jsx
+index 0996530..91f79f2 100644
+--- a/src/pages/Register.jsx
++++ b/src/pages/Register.jsx
+@@ -10,6 +10,7 @@ import AuthLayout from "@/components/AuthLayout";
+ import GoogleIcon from "@/components/GoogleIcon";
+ import { toast } from "@/components/ui/use-toast";
+ import { safeReturnTo } from "@/lib/authReturnTo";
++import { primaryButton } from "@/components/onboarding/styles";
+ 
+ export default function Register() {
+   const [email, setEmail] = useState("");
+@@ -102,7 +103,7 @@ export default function Register() {
+           </InputOTP>
+         </div>
+         <Button
+-          className="w-full h-12 font-medium"
++          className={`w-full ${primaryButton}`}
+           onClick={handleVerify}
+           disabled={loading || otpCode.length < 6}
+         >
+@@ -115,9 +116,9 @@ export default function Register() {
+             "Verify"
+           )}
+         </Button>
+-        <p className="text-center text-sm text-muted-foreground mt-4">
++        <p className="mt-5 text-center text-sm text-slate-500">
+           Didn't receive the code?{" "}
+-          <button onClick={handleResend} className="text-primary font-medium hover:underline">
++          <button onClick={handleResend} className="font-medium text-pomegranate-700 underline-offset-4 hover:underline">
+             Resend
+           </button>
+         </p>
+@@ -135,7 +136,7 @@ export default function Register() {
+           Already have an account?{" "}
+           <Link
+             to={"/login" + (safeReturnTo() !== "/" ? "?returnTo=" + encodeURIComponent(safeReturnTo()) : "")}
+-            className="text-primary font-medium hover:underline"
++            className="font-medium text-pomegranate-700 underline-offset-4 hover:underline"
+           >
+             Log in
+           </Link>
+@@ -144,7 +145,7 @@ export default function Register() {
+     >
+       <Button
+         variant="outline"
+-        className="w-full h-12 text-sm font-medium mb-6"
++        className="h-12 w-full rounded-full border-pomegranate-200 bg-white text-sm font-medium text-slate-700 shadow-none hover:bg-pomegranate-50 mb-6"
+         onClick={handleGoogle}
+       >
+         <GoogleIcon className="w-5 h-5 mr-2" />
+@@ -153,10 +154,10 @@ export default function Register() {
+ 
+       <div className="relative mb-6">
+         <div className="absolute inset-0 flex items-center">
+-          <div className="w-full border-t border-border" />
++          <div className="w-full border-t border-pomegranate-100" />
+         </div>
+         <div className="relative flex justify-center text-xs uppercase">
+-          <span className="bg-card px-3 text-muted-foreground">or</span>
++          <span className="bg-[#fefdfb] px-3 tracking-[0.18em] text-slate-400">or</span>
+         </div>
+       </div>
+ 
+@@ -216,7 +217,7 @@ export default function Register() {
+             />
+           </div>
+         </div>
+-        <Button type="submit" className="w-full h-12 font-medium" disabled={loading}>
++        <Button type="submit" className={`w-full ${primaryButton}`} disabled={loading}>
+           {loading ? (
+             <>
+               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+diff --git a/src/pages/Start.jsx b/src/pages/Start.jsx
+index 055b676..38a23ba 100644
+--- a/src/pages/Start.jsx
++++ b/src/pages/Start.jsx
+@@ -1,4 +1,5 @@
+ import React, { useEffect, useState } from "react";
++import PomiLoader from "@/components/PomiLoader";
+ import { base44 } from "@/api/base44Client";
+ import Home from "@/pages/Home";
+ import OnboardingQuestionnaire from "@/components/OnboardingQuestionnaire";
+@@ -41,9 +42,7 @@ export default function Start() {
+ 
+   if (loading) {
+     return (
+-      <div className="fixed inset-0 flex items-center justify-center bg-background">
+-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-pomegranate-100 border-t-pomegranate-600" />
+-      </div>
++      <PomiLoader />
+     );
+   }
+ 
+diff --git a/tailwind.config.js b/tailwind.config.js
+index d540466..fd90d35 100644
+--- a/tailwind.config.js
++++ b/tailwind.config.js
+@@ -79,9 +79,14 @@ module.exports = {
+   			heading: ['var(--font-heading)'],
+   			body: ['var(--font-body)'],
+   			display: ['var(--font-display)'],
+-  			mono: ['var(--font-mono)']
++  			mono: ['var(--font-mono)'],
++  			serif: ['"Cormorant Garamond"', '"Cormorant"', 'Georgia', 'serif']
+   		},
+   		keyframes: {
++  			'soft-fade': {
++  				'0%, 100%': { opacity: '0.35', transform: 'scale(0.97)' },
++  				'50%': { opacity: '1', transform: 'scale(1)' }
++  			},
+   			'accordion-down': {
+   				from: {
+   					height: '0'
+@@ -100,6 +105,7 @@ module.exports = {
+   			}
+   		},
+   		animation: {
++  			'soft-fade': 'soft-fade 2.4s ease-in-out infinite',
+   			'accordion-down': 'accordion-down 0.2s ease-out',
+   			'accordion-up': 'accordion-up 0.2s ease-out'
+   		}

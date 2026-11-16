@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PomiLoader from "@/components/PomiLoader";
 import { base44 } from "@/api/base44Client";
 import Home from "@/pages/Home";
 import OnboardingQuestionnaire from "@/components/OnboardingQuestionnaire";
@@ -41,9 +42,7 @@ export default function Start() {
 
   if (loading) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-background">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-pomegranate-100 border-t-pomegranate-600" />
-      </div>
+      <PomiLoader />
     );
   }
 
