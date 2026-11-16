@@ -1,0 +1,32 @@
+{
+  "summary": "Frontend-only test (mocked base44 client) at 1920 and 390 widths. Passed: (1) Dashboard fade-up works. The wrappers use the fade-up animation (0.7s, fill both) with delays 0/90/90/180/270/360/450/540ms. Opacity sampled at about 0ms: 0.75/0.43/0.43/0/0/0/0/0. About 200ms later the lower cards were still partly transparent (0.52/0.04/0/0). By about 1.7s every card was at 1.00. (2) /profile: the h1 'Your profile' and all section headings (Name, Email, Password, What I'm tracking, Where my donations go, Currency, Notifications) are Cormorant Garamond. All 7 sections are rgba(255,255,255,0.7) with a 1px rgb(239,225,227) border. 'Save preferences' is 56px high, fully rounded, rgb(135,92,102), and its toast shows. 'Back to my dashboard' links to '/' and is a pill (radius 9999px). Change name -> TEST_Jo -> Save updated the card, localStorage and the dashboard greeting ('Hello, TEST_Jo'). (3) /log-today: the h1 'How are you today?' is serif. The date line is italic Cormorant. The 'Menstrual cycles' and 'General wellbeing' h2s are serif. All 3 sections are cream. Mood 'Great' + Save entry saved a DailyLog (mood 'great'), showed the 'Today's entry saved' toast and went back to '/'. (4) Mobile 390: scrollWidth is 390 on /, /profile and /log-today, and no element overflows. (5) Regression: welcome, onboarding step 1, /login, /register, /forgot-password, /about, /contact and /preview-loader all render. No page errors. FAILED: 'Log out' on /profile does NOT reset to the welcome screen in the preview. It goes to '/?clear_access_token=true', and the dashboard still shows 'Hello, Alex'.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Profile 'Log out' button (preview)", "issue": "After logout the user stays signed in. handleLogout runs window.location.replace('/?clear_access_token=true'). app-params.js then clears only base44_access_token and token. The mock keeps the user in localStorage pomi_preview_user, which is not cleared, so '/' renders the dashboard again ('Hello, Alex') instead of 'Welcome to Pomi'.", "selector": "button:has-text('Log out')", "priority": "HIGH"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Log today", "issues": ["The date copy reads awkwardly: 'It's the Monday 16 November'. Use 'It's Monday 16 November' or 'Monday, 16 November'."]},
+      {"screen": "Dashboard", "issues": ["The ReminderBanner and the JournalPrompt both use enter(1), so both have a 90ms delay and appear at the same moment. Use step 2 for the journal prompt and shift the later steps, so the cards appear strictly one after another.", "The 'Thanks for logging today' reminder still shows even when nothing was logged today (preview mock data, already noted in iteration 4)."]},
+      {"screen": "Log today / Profile", "issues": ["Toasts from /profile ('Name updated', 'Preferences saved') stay on screen after navigating to /log-today."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Fix Profile logout so the preview resets to the welcome screen. Call base44.auth.logout() (the mock version runs resetPreview), or clear pomi_preview_user before redirecting.",
+    "Optional: give the JournalPrompt its own animation step so no two cards share a delay",
+    "Optional: change the Log today date copy to 'It's Monday 16 November'"
+  ],
+  "critical_code_review_comments": [
+    "The cream card class string (rounded-3xl border-pomegranate-100 bg-white/70 shadow-[...]) is copied into about 10 files (7 profile components and 3 LogToday sections). Extract it into a shared Card variant or a constant.",
+    "The same 56px pill button class is repeated in Profile and LogToday (and in Login/Register). Extract it into a Button variant.",
+    "Profile, LogToday and the dashboard header buttons still have no data-testid attributes. Mood buttons are icon-only; they do have aria-labels, which is fine."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "95% (1 failure: logout in preview)"},
+  "seed_data_creation": "none (localStorage only, cleared at end)",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Sign in by setting localStorage pomi_preview_user and reloading. The profile link is a[aria-label='Your profile']. Change name: click the 'Change name' button, fill the first input in the first main section, then click Save. Mood buttons are aria-label Great/Good/Okay/Low/Devastated/Anxious, inside the first main section. Logout check: after clicking 'Log out', expect the text 'Welcome to Pomi'."
+}

@@ -212,7 +212,7 @@ export default function LogToday() {
           {isToday ? "How are you today?" : "Edit this day"}
         </h1>
         <p className="mt-3 font-serif text-xl italic text-pomegranate-800/80 sm:text-[1.375rem]">
-          It's the {format(new Date(`${date}T00:00:00`), "EEEE d MMMM")}
+          It's {format(new Date(`${date}T00:00:00`), "EEEE d MMMM")}
         </p>
 
         {loading || !tracking ? (

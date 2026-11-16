@@ -181,24 +181,24 @@ export default function Home() {
 
         {/* Daily journalling prompt for general wellbeing tracking */}
         {tracksWellbeing && (
-          <div className={`mb-6 ${enter(1).className}`} style={enter(1).style}>
+          <div className={`mb-6 ${enter(2).className}`} style={enter(2).style}>
             <JournalPrompt dateKey={format(new Date(), "yyyy-MM-dd")} />
           </div>
         )}
 
         {/* Status */}
-        <div {...enter(2)}>
+        <div {...enter(3)}>
           <CycleStatus logs={logs} />
         </div>
 
         {/* Stats */}
-        <div className={`mt-6 ${enter(3).className}`} style={enter(3).style}>
+        <div className={`mt-6 ${enter(4).className}`} style={enter(4).style}>
           <CycleStats logs={logs} />
         </div>
 
         {/* Grid */}
         <div className="mt-6 grid gap-6 lg:grid-cols-5">
-          <div className={`space-y-6 lg:col-span-3 ${enter(4).className}`} style={enter(4).style}>
+          <div className={`space-y-6 lg:col-span-3 ${enter(5).className}`} style={enter(5).style}>
             <CalendarPanel
               logs={logs}
               dailyLogs={dailyLogs}
@@ -225,13 +225,13 @@ export default function Home() {
 
             <CyclePatterns logs={logs} dailyLogs={dailyLogs} />
           </div>
-          <div className={`lg:col-span-2 ${enter(5).className}`} style={enter(5).style}>
+          <div className={`lg:col-span-2 ${enter(6).className}`} style={enter(6).style}>
             <CharityImpact />
           </div>
         </div>
 
         {/* Donations */}
-        <div className={`mt-6 ${enter(6).className}`} style={enter(6).style}>
+        <div className={`mt-6 ${enter(7).className}`} style={enter(7).style}>
           <DonationTracker user={user} />
         </div>
 

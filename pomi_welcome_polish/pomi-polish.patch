@@ -3702,6 +3702,44 @@ index 8e5595a..b5f5d51 100644
            {value == null ? "—" : value}
          </span>
          {value != null && (
+diff --git a/src/components/journal/JournalEntryBox.jsx b/src/components/journal/JournalEntryBox.jsx
+index 73539af..c711f7e 100644
+--- a/src/components/journal/JournalEntryBox.jsx
++++ b/src/components/journal/JournalEntryBox.jsx
+@@ -32,7 +32,7 @@ export default function JournalEntryBox({
+             {theme.label}
+           </span>
+         </div>
+-        <p className="mt-3 font-heading text-lg leading-snug text-slate-800">
++        <p className="mt-3 font-serif text-2xl italic leading-snug text-pomegranate-900">
+           {prompt}
+         </p>
+       </div>
+diff --git a/src/components/journal/JournalEntryDialog.jsx b/src/components/journal/JournalEntryDialog.jsx
+index 4ceca35..2849c9b 100644
+--- a/src/components/journal/JournalEntryDialog.jsx
++++ b/src/components/journal/JournalEntryDialog.jsx
+@@ -41,9 +41,9 @@ export default function JournalEntryDialog({
+ 
+   return (
+     <Dialog open={open} onOpenChange={onOpenChange}>
+-      <DialogContent className="max-h-[85vh] max-w-lg overflow-y-auto rounded-3xl border-slate-100 bg-white p-6">
++      <DialogContent className="max-h-[85vh] max-w-lg overflow-y-auto rounded-3xl border-pomegranate-100 bg-[#fdfbf8] p-6">
+         <DialogHeader>
+-          <DialogTitle className="font-heading text-lg font-semibold text-slate-800">
++          <DialogTitle className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+             Your journal entry
+           </DialogTitle>
+           <DialogDescription className="text-sm text-slate-500">
+@@ -60,7 +60,7 @@ export default function JournalEntryDialog({
+               {theme.label}
+             </span>
+           </div>
+-          <p className="mt-2 font-heading text-base leading-snug text-slate-800">
++          <p className="mt-2 font-serif text-xl italic leading-snug text-pomegranate-900">
+             {prompt}
+           </p>
+         </div>
 diff --git a/src/components/journal/JournalPrompt.jsx b/src/components/journal/JournalPrompt.jsx
 index b7cc093..90aec52 100644
 --- a/src/components/journal/JournalPrompt.jsx
@@ -3715,6 +3753,19 @@ index b7cc093..90aec52 100644
              {prompt}
            </p>
            <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+diff --git a/src/components/journal/VoiceNoteRecorder.jsx b/src/components/journal/VoiceNoteRecorder.jsx
+index cb0649a..eef2a41 100644
+--- a/src/components/journal/VoiceNoteRecorder.jsx
++++ b/src/components/journal/VoiceNoteRecorder.jsx
+@@ -117,7 +117,7 @@ export default function VoiceNoteRecorder({ fileUri, onChange }) {
+         <button
+           type="button"
+           onClick={stop}
+-          className="inline-flex items-center gap-2 rounded-full bg-pomegranate-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-pomegranate-700"
++          className="inline-flex items-center gap-2 rounded-full bg-pomegranate-700 px-5 py-2.5 text-sm font-medium text-white shadow-[0_8px_20px_-12px_rgba(109,75,84,0.55)] hover:bg-pomegranate-800"
+         >
+           <Square className="h-4 w-4" />
+           Stop recording · {clock(seconds)}
 diff --git a/src/components/onboarding/AccountStep.jsx b/src/components/onboarding/AccountStep.jsx
 index 99ae956..5f7d705 100644
 --- a/src/components/onboarding/AccountStep.jsx
@@ -4210,6 +4261,157 @@ index c42e8bd..9fe34d1 100644
                    {tile.value}
                  </p>
                  <p className="mt-0.5 text-[10px] uppercase leading-tight tracking-[0.08em] text-slate-500">
+diff --git a/src/components/profile/CausePreferences.jsx b/src/components/profile/CausePreferences.jsx
+index c178c07..b2a55f0 100644
+--- a/src/components/profile/CausePreferences.jsx
++++ b/src/components/profile/CausePreferences.jsx
+@@ -14,8 +14,8 @@ export default function CausePreferences({ selected, onChange }) {
+     );
+ 
+   return (
+-    <section className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
+-      <h2 className="font-heading text-lg font-semibold text-slate-800">
++    <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
++      <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+         Where my donations go
+       </h2>
+       <p className="mt-1 text-sm text-slate-500">
+diff --git a/src/components/profile/CurrencyPreference.jsx b/src/components/profile/CurrencyPreference.jsx
+index 93fa280..2e958db 100644
+--- a/src/components/profile/CurrencyPreference.jsx
++++ b/src/components/profile/CurrencyPreference.jsx
+@@ -10,8 +10,8 @@ import {
+ 
+ export default function CurrencyPreference({ value, onChange }) {
+   return (
+-    <section className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
+-      <h2 className="font-heading text-lg font-semibold text-slate-800">
++    <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
++      <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+         Currency
+       </h2>
+       <p className="mt-1 text-sm text-slate-500">
+diff --git a/src/components/profile/EmailBox.jsx b/src/components/profile/EmailBox.jsx
+index f2a3c90..0d109b3 100644
+--- a/src/components/profile/EmailBox.jsx
++++ b/src/components/profile/EmailBox.jsx
+@@ -4,8 +4,8 @@ import { Mail } from "lucide-react";
+ // The address the account signs in with — shown for reference, never editable.
+ export default function EmailBox({ email }) {
+   return (
+-    <section className="rounded-3xl border border-pomegranate-100 bg-white p-5 sm:p-6">
+-      <h2 className="font-heading text-lg font-semibold text-slate-800">
++    <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-5 sm:p-6">
++      <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+         Email
+       </h2>
+       <p className="mt-1 text-sm text-slate-500">
+diff --git a/src/components/profile/NotificationPreferences.jsx b/src/components/profile/NotificationPreferences.jsx
+index bd7778c..e33b4f6 100644
+--- a/src/components/profile/NotificationPreferences.jsx
++++ b/src/components/profile/NotificationPreferences.jsx
+@@ -51,10 +51,10 @@ export default function NotificationPreferences({
+     });
+ 
+   return (
+-    <section className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
++    <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
+       <div className="flex items-center gap-2">
+         <Bell className="h-4 w-4 text-pomegranate-400" />
+-        <h2 className="font-heading text-lg font-semibold text-slate-800">
++        <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+           Notifications
+         </h2>
+       </div>
+diff --git a/src/components/profile/PasswordForm.jsx b/src/components/profile/PasswordForm.jsx
+index eb6456c..902dfc9 100644
+--- a/src/components/profile/PasswordForm.jsx
++++ b/src/components/profile/PasswordForm.jsx
+@@ -48,10 +48,10 @@ export default function PasswordForm({ user }) {
+   };
+ 
+   return (
+-    <section className="rounded-3xl border border-pomegranate-100 bg-white p-5 sm:p-6">
++    <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-5 sm:p-6">
+       <div className="flex flex-wrap items-center justify-between gap-3">
+         <div>
+-          <h2 className="font-heading text-lg font-semibold text-slate-800">
++          <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+             Password
+           </h2>
+           <p className="mt-1 text-sm text-slate-500">
+@@ -120,7 +120,7 @@ export default function PasswordForm({ user }) {
+         <Button
+           type="submit"
+           disabled={!canSave}
+-          className="rounded-full bg-pomegranate-600 px-5 hover:bg-pomegranate-700"
++          className="rounded-full bg-pomegranate-700 px-5 font-medium text-white shadow-[0_8px_20px_-12px_rgba(109,75,84,0.55)] transition-colors hover:bg-pomegranate-800"
+         >
+           {saving ? "Updating…" : "Update password"}
+         </Button>
+diff --git a/src/components/profile/ProfileNameForm.jsx b/src/components/profile/ProfileNameForm.jsx
+index 8cd1307..2a6a281 100644
+--- a/src/components/profile/ProfileNameForm.jsx
++++ b/src/components/profile/ProfileNameForm.jsx
+@@ -38,10 +38,10 @@ export default function ProfileNameForm({ user, onSaved }) {
+   };
+ 
+   return (
+-    <section className="rounded-3xl border border-pomegranate-100 bg-white p-5 sm:p-6">
++    <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-5 sm:p-6">
+       <div className="flex flex-wrap items-center justify-between gap-3">
+         <div>
+-          <h2 className="font-heading text-lg font-semibold text-slate-800">
++          <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+             Name
+           </h2>
+           <p className="mt-1 text-sm text-slate-500">
+@@ -78,7 +78,7 @@ export default function ProfileNameForm({ user, onSaved }) {
+         <Button
+           type="submit"
+           disabled={!canSave}
+-          className="rounded-full bg-pomegranate-600 px-5 hover:bg-pomegranate-700"
++          className="rounded-full bg-pomegranate-700 px-5 font-medium text-white shadow-[0_8px_20px_-12px_rgba(109,75,84,0.55)] transition-colors hover:bg-pomegranate-800"
+         >
+           {saving ? "Saving…" : "Save name"}
+         </Button>
+diff --git a/src/components/profile/RemoveTrackingDialog.jsx b/src/components/profile/RemoveTrackingDialog.jsx
+index 94f5bba..2eb0081 100644
+--- a/src/components/profile/RemoveTrackingDialog.jsx
++++ b/src/components/profile/RemoveTrackingDialog.jsx
+@@ -19,7 +19,7 @@ export default function RemoveTrackingDialog({ option, open, onOpenChange, onCon
+     <Dialog open={open} onOpenChange={onOpenChange}>
+       <DialogContent className="rounded-3xl border-slate-100 sm:max-w-md">
+         <DialogHeader>
+-          <DialogTitle className="font-heading text-xl font-semibold text-slate-800">
++          <DialogTitle className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+             {removal?.title || `Stop tracking ${option?.label || "this"}?`}
+           </DialogTitle>
+           <DialogDescription className="text-sm text-slate-500">
+@@ -53,7 +53,7 @@ export default function RemoveTrackingDialog({ option, open, onOpenChange, onCon
+           </Button>
+           <Button
+             onClick={onConfirm}
+-            className="w-full rounded-full bg-pomegranate-600 hover:bg-pomegranate-700"
++            className="w-full rounded-full bg-pomegranate-700 font-medium text-white hover:bg-pomegranate-800"
+           >
+             Turn it off
+           </Button>
+diff --git a/src/components/profile/TrackingPreferences.jsx b/src/components/profile/TrackingPreferences.jsx
+index 8742594..1e5157e 100644
+--- a/src/components/profile/TrackingPreferences.jsx
++++ b/src/components/profile/TrackingPreferences.jsx
+@@ -21,8 +21,8 @@ export default function TrackingPreferences({ selected, onChange }) {
+   };
+ 
+   return (
+-    <section className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
+-      <h2 className="font-heading text-lg font-semibold text-slate-800">
++    <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
++      <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+         What I'm tracking
+       </h2>
+       <p className="mt-1 text-sm text-slate-500">
 diff --git a/src/components/reminders/ReminderBanner.jsx b/src/components/reminders/ReminderBanner.jsx
 index 514edd6..7e5837c 100644
 --- a/src/components/reminders/ReminderBanner.jsx
@@ -4555,7 +4757,7 @@ index 31d20a6..63a9230 100644
                <>
                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
 diff --git a/src/pages/Home.jsx b/src/pages/Home.jsx
-index 04b3402..64ca5e1 100644
+index 04b3402..d3b2c03 100644
 --- a/src/pages/Home.jsx
 +++ b/src/pages/Home.jsx
 @@ -1,4 +1,5 @@
@@ -4564,7 +4766,20 @@ index 04b3402..64ca5e1 100644
  import { format } from "date-fns";
  import { base44 } from "@/api/base44Client";
  import { useToast } from "@/components/ui/use-toast";
-@@ -104,9 +105,7 @@ export default function Home() {
+@@ -19,6 +20,12 @@ import ReminderBell from "@/components/reminders/ReminderBell";
+ import { useReminders } from "@/hooks/use-reminders";
+ import useIsSubscriber from "@/hooks/use-is-subscriber";
+ 
++// Dashboard cards fade up one after another on load.
++const enter = (step) => ({
++  className: "motion-safe:animate-fade-up",
++  style: { animationDelay: `${step * 90}ms` },
++});
++
+ // Reminders that are about logging a period still open the calendar.
+ const PERIOD_REMINDERS = ["first_log", "period_due"];
+ 
+@@ -104,9 +111,7 @@ export default function Home() {
  
    if (checkingProfile) {
      return (
@@ -4575,7 +4790,7 @@ index 04b3402..64ca5e1 100644
      );
    }
  
-@@ -123,7 +122,7 @@ export default function Home() {
+@@ -123,7 +128,7 @@ export default function Home() {
            asChild
            variant="ghost"
            size="icon"
@@ -4584,7 +4799,7 @@ index 04b3402..64ca5e1 100644
          >
            <Link to="/profile" aria-label="Your profile">
              <UserRound className="h-5 w-5" />
-@@ -132,29 +131,29 @@ export default function Home() {
+@@ -132,29 +137,29 @@ export default function Home() {
          <Button
            asChild
            variant="outline"
@@ -4612,7 +4827,7 @@ index 04b3402..64ca5e1 100644
          {/* Greeting */}
 -        <div className="mb-8">
 -          <h1 className="font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
-+        <div className="mb-10">
++        <div className={`mb-10 ${enter(0).className}`} style={enter(0).style}>
 +          <h1 className="font-serif text-[2.5rem] font-medium leading-[1.1] tracking-[-0.01em] text-pomegranate-900 sm:text-[3.25rem]">
              Hello{firstName ? `, ${firstName}` : logs.length ? "" : ", welcome"}
            </h1>
@@ -4621,7 +4836,52 @@ index 04b3402..64ca5e1 100644
              {tracksWellbeing && !tracksCycles
                ? "Here's your space to check in with yourself today."
                : logs.length
-@@ -203,7 +202,7 @@ export default function Home() {
+@@ -165,31 +170,35 @@ export default function Home() {
+ 
+         {/* Reminder */}
+         {reminders.length > 0 && (
+-          <ReminderBanner
+-            reminder={reminders[0]}
+-            onDismiss={dismiss}
+-            onLogPeriod={openFromReminder}
+-          />
++          <div {...enter(1)}>
++            <ReminderBanner
++              reminder={reminders[0]}
++              onDismiss={dismiss}
++              onLogPeriod={openFromReminder}
++            />
++          </div>
+         )}
+ 
+         {/* Daily journalling prompt for general wellbeing tracking */}
+         {tracksWellbeing && (
+-          <div className="mb-6">
++          <div className={`mb-6 ${enter(2).className}`} style={enter(2).style}>
+             <JournalPrompt dateKey={format(new Date(), "yyyy-MM-dd")} />
+           </div>
+         )}
+ 
+         {/* Status */}
+-        <CycleStatus logs={logs} />
++        <div {...enter(3)}>
++          <CycleStatus logs={logs} />
++        </div>
+ 
+         {/* Stats */}
+-        <div className="mt-6">
++        <div className={`mt-6 ${enter(4).className}`} style={enter(4).style}>
+           <CycleStats logs={logs} />
+         </div>
+ 
+         {/* Grid */}
+         <div className="mt-6 grid gap-6 lg:grid-cols-5">
+-          <div className="space-y-6 lg:col-span-3">
++          <div className={`space-y-6 lg:col-span-3 ${enter(5).className}`} style={enter(5).style}>
+             <CalendarPanel
+               logs={logs}
+               dailyLogs={dailyLogs}
+@@ -203,7 +212,7 @@ export default function Home() {
                      asChild
                      variant="outline"
                      size="sm"
@@ -4630,7 +4890,19 @@ index 04b3402..64ca5e1 100644
                    >
                      <Link to="/calendar?log=1">
                        <CalendarPlus className="mr-1.5 h-4 w-4" />
-@@ -226,7 +225,7 @@ export default function Home() {
+@@ -216,17 +225,17 @@ export default function Home() {
+ 
+             <CyclePatterns logs={logs} dailyLogs={dailyLogs} />
+           </div>
+-          <div className="lg:col-span-2">
++          <div className={`lg:col-span-2 ${enter(6).className}`} style={enter(6).style}>
+             <CharityImpact />
+           </div>
+         </div>
+ 
+         {/* Donations */}
+-        <div className="mt-6">
++        <div className={`mt-6 ${enter(7).className}`} style={enter(7).style}>
            <DonationTracker user={user} />
          </div>
  
@@ -4639,6 +4911,87 @@ index 04b3402..64ca5e1 100644
            Pomi is not a medical device. For health concerns, please consult a
            healthcare professional.
          </p>
+diff --git a/src/pages/LogToday.jsx b/src/pages/LogToday.jsx
+index 5f401b8..5c5e298 100644
+--- a/src/pages/LogToday.jsx
++++ b/src/pages/LogToday.jsx
+@@ -200,19 +200,19 @@ export default function LogToday() {
+       <AppHeader maxWidth="max-w-2xl">
+         <Link
+           to="/"
+-          className="inline-flex items-center gap-1.5 text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
++          className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-pomegranate-700 transition-colors hover:bg-pomegranate-50 hover:text-pomegranate-800"
+         >
+           <ArrowLeft className="h-4 w-4" />
+           Back to my dashboard
+         </Link>
+       </AppHeader>
+ 
+-      <main className="mx-auto max-w-2xl px-5 py-8 sm:px-8 sm:py-12">
+-        <h1 className="font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
++      <main className="mx-auto max-w-2xl px-5 py-10 sm:px-8 sm:py-16">
++        <h1 className="font-serif text-[2.5rem] font-medium leading-[1.1] tracking-[-0.01em] text-pomegranate-900 sm:text-[3.25rem]">
+           {isToday ? "How are you today?" : "Edit this day"}
+         </h1>
+-        <p className="mt-2 text-sm text-slate-500">
+-          It's the {format(new Date(`${date}T00:00:00`), "EEEE d MMMM")}
++        <p className="mt-3 font-serif text-xl italic text-pomegranate-800/80 sm:text-[1.375rem]">
++          It's {format(new Date(`${date}T00:00:00`), "EEEE d MMMM")}
+         </p>
+ 
+         {loading || !tracking ? (
+@@ -220,9 +220,9 @@ export default function LogToday() {
+             <Loader2 className="h-5 w-5 animate-spin text-pomegranate-400" />
+           </div>
+         ) : (
+-          <div className="mt-6 space-y-6">
+-            <section className="rounded-3xl border border-slate-100 bg-white p-5 sm:p-6">
+-              <p className="text-sm text-slate-500">
++          <div className="mt-10 space-y-6">
++            <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
++              <p className="text-sm leading-relaxed text-slate-500">
+                 Log your mood and lifestyle choices for today
+               </p>
+               <div className="mt-5 space-y-6">
+@@ -278,11 +278,11 @@ export default function LogToday() {
+             </section>
+ 
+             {showCycle && (
+-              <section className="rounded-3xl border border-slate-100 bg-white p-5 sm:p-6">
+-                <h2 className="font-heading text-xl font-semibold text-slate-800">
++              <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
++                <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+                   Menstrual cycles
+                 </h2>
+-                <p className="mt-1 text-sm text-slate-500">
++                <p className="mt-2 text-sm leading-relaxed text-slate-500">
+                   Log today as a period day or simply track today's cycle
+                   symptoms.
+                 </p>
+@@ -322,11 +322,11 @@ export default function LogToday() {
+             )}
+ 
+             {tracksWellbeing && (
+-              <section className="rounded-3xl border border-slate-100 bg-white p-5 sm:p-6">
+-                <h2 className="font-heading text-xl font-semibold text-slate-800">
++              <section className="rounded-3xl border border-pomegranate-100 bg-white/70 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] p-6 sm:p-8">
++                <h2 className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+                   General wellbeing
+                 </h2>
+-                <p className="mt-1 text-sm text-slate-500">
++                <p className="mt-2 text-sm leading-relaxed text-slate-500">
+                   Take a quiet moment to reflect on today, maybe using today's
+                   journal prompt if you need.
+                 </p>
+@@ -351,7 +351,7 @@ export default function LogToday() {
+             <Button
+               onClick={save}
+               disabled={saving}
+-              className="w-full rounded-full bg-pomegranate-600 py-6 text-base hover:bg-pomegranate-700"
++              className="w-full h-14 rounded-full bg-pomegranate-700 text-[0.9375rem] font-medium tracking-[0.02em] text-white shadow-[0_10px_28px_-12px_rgba(109,75,84,0.55)] transition-colors hover:bg-pomegranate-800 disabled:opacity-40 disabled:shadow-none"
+             >
+               {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+               Save entry
 diff --git a/src/pages/Login.jsx b/src/pages/Login.jsx
 index f6f6f7a..f8a4326 100644
 --- a/src/pages/Login.jsx
@@ -4719,7 +5072,7 @@ index f6f6f7a..f8a4326 100644
              <>
                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
 diff --git a/src/pages/Profile.jsx b/src/pages/Profile.jsx
-index bd2f76c..45ea47c 100644
+index bd2f76c..7cab306 100644
 --- a/src/pages/Profile.jsx
 +++ b/src/pages/Profile.jsx
 @@ -1,4 +1,5 @@
@@ -4728,7 +5081,7 @@ index bd2f76c..45ea47c 100644
  import { Link } from "react-router-dom";
  import { ArrowLeft } from "lucide-react";
  import { base44 } from "@/api/base44Client";
-@@ -74,9 +75,7 @@ export default function Profile() {
+@@ -74,21 +75,19 @@ export default function Profile() {
  
    if (loading) {
      return (
@@ -4739,6 +5092,62 @@ index bd2f76c..45ea47c 100644
      );
    }
  
+   if (!user) {
+     return (
+       <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-background px-6 text-center">
+-        <p className="font-heading text-xl font-semibold text-slate-700">
++        <p className="font-serif text-2xl font-medium leading-tight text-pomegranate-900">
+           We couldn't load your profile.
+         </p>
+         <Link
+           to="/"
+-          className="text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
++          className="text-sm font-medium text-pomegranate-700 underline-offset-4 hover:underline"
+         >
+           Back to my dashboard
+         </Link>
+@@ -103,19 +102,19 @@ export default function Profile() {
+       <AppHeader maxWidth="max-w-3xl">
+         <Link
+           to="/"
+-          className="inline-flex items-center gap-1.5 text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
++          className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-pomegranate-700 transition-colors hover:bg-pomegranate-50 hover:text-pomegranate-800"
+         >
+           <ArrowLeft className="h-4 w-4" />
+           Back to my dashboard
+         </Link>
+       </AppHeader>
+ 
+-      <main className="mx-auto max-w-3xl px-5 py-8 sm:px-8 sm:py-12">
+-        <h1 className="font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
++      <main className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-16">
++        <h1 className="font-serif text-[2.5rem] font-medium leading-[1.1] tracking-[-0.01em] text-pomegranate-900 sm:text-[3.25rem]">
+           Your profile
+         </h1>
+ 
+-        <div className="mt-8 space-y-6">
++        <div className="mt-10 space-y-6">
+           <ProfileNameForm
+             user={user}
+             onSaved={(name) =>
+@@ -137,7 +136,7 @@ export default function Profile() {
+         <Button
+           onClick={handleSave}
+           disabled={!canSave}
+-          className="mt-8 w-full rounded-full bg-pomegranate-600 py-6 text-base hover:bg-pomegranate-700"
++          className="mt-10 w-full h-14 rounded-full bg-pomegranate-700 text-[0.9375rem] font-medium tracking-[0.02em] text-white shadow-[0_10px_28px_-12px_rgba(109,75,84,0.55)] transition-colors hover:bg-pomegranate-800 disabled:opacity-40 disabled:shadow-none"
+         >
+           {saving ? "Saving…" : "Save preferences"}
+         </Button>
+@@ -150,7 +149,7 @@ export default function Profile() {
+         <button
+           type="button"
+           onClick={handleLogout}
+-          className="mx-auto mt-8 block text-sm font-medium text-slate-500 hover:text-pomegranate-600"
++          className="mx-auto mt-10 block rounded-full px-4 py-2 text-sm font-medium text-pomegranate-700 transition-colors hover:bg-pomegranate-50"
+         >
+           Log out
+         </button>
 diff --git a/src/pages/Register.jsx b/src/pages/Register.jsx
 index 0996530..91f79f2 100644
 --- a/src/pages/Register.jsx
@@ -4834,10 +5243,10 @@ index 055b676..38a23ba 100644
    }
  
 diff --git a/tailwind.config.js b/tailwind.config.js
-index d540466..fd90d35 100644
+index d540466..59da833 100644
 --- a/tailwind.config.js
 +++ b/tailwind.config.js
-@@ -79,9 +79,14 @@ module.exports = {
+@@ -79,9 +79,18 @@ module.exports = {
    			heading: ['var(--font-heading)'],
    			body: ['var(--font-body)'],
    			display: ['var(--font-display)'],
@@ -4846,6 +5255,10 @@ index d540466..fd90d35 100644
 +  			serif: ['"Cormorant Garamond"', '"Cormorant"', 'Georgia', 'serif']
    		},
    		keyframes: {
++  			'fade-up': {
++  				from: { opacity: '0', transform: 'translateY(12px)' },
++  				to: { opacity: '1', transform: 'translateY(0)' }
++  			},
 +  			'soft-fade': {
 +  				'0%, 100%': { opacity: '0.35', transform: 'scale(0.97)' },
 +  				'50%': { opacity: '1', transform: 'scale(1)' }
@@ -4853,10 +5266,11 @@ index d540466..fd90d35 100644
    			'accordion-down': {
    				from: {
    					height: '0'
-@@ -100,6 +105,7 @@ module.exports = {
+@@ -100,6 +109,8 @@ module.exports = {
    			}
    		},
    		animation: {
++  			'fade-up': 'fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both',
 +  			'soft-fade': 'soft-fade 2.4s ease-in-out infinite',
    			'accordion-down': 'accordion-down 0.2s ease-out',
    			'accordion-up': 'accordion-up 0.2s ease-out'

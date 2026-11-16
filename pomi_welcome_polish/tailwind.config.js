@@ -83,6 +83,10 @@ module.exports = {
   			serif: ['"Cormorant Garamond"', '"Cormorant"', 'Georgia', 'serif']
   		},
   		keyframes: {
+  			'fade-up': {
+  				from: { opacity: '0', transform: 'translateY(12px)' },
+  				to: { opacity: '1', transform: 'translateY(0)' }
+  			},
   			'soft-fade': {
   				'0%, 100%': { opacity: '0.35', transform: 'scale(0.97)' },
   				'50%': { opacity: '1', transform: 'scale(1)' }
@@ -105,6 +109,7 @@ module.exports = {
   			}
   		},
   		animation: {
+  			'fade-up': 'fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both',
   			'soft-fade': 'soft-fade 2.4s ease-in-out infinite',
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out'

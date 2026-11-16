@@ -85,3 +85,6 @@ export const previewAsSignedIn = () => {
   resetPreview();
   write({ preferred_name: "Alex", tracking_focus: ["menstrual_cycles"], charity_interests: ["period_poverty"] });
 };
+
+// The real app logs out by reloading with ?clear_access_token=true.
+if (new URLSearchParams(window.location.search).has("clear_access_token")) resetPreview();
