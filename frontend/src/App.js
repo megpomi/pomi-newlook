@@ -1,12 +1,13 @@
 import { useState } from "react";
 import "@/App.css";
 import { BrowserRouter } from "react-router-dom";
-import IntroStep from "@/pomi/IntroStep";
+import Start from "@/pages/Start";
 import IntroStepOriginal from "@/pomi/IntroStepOriginal";
+import { resetPreview } from "@/api/base44Client";
 
-const NextStep = ({ onBack }) => (
+const BeforeNext = ({ onBack }) => (
   <div data-testid="preview-next-step" className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background px-6 text-center text-slate-600">
-    <p>"Start with Pomi" was clicked. In the real app, the first onboarding question appears here.</p>
+    <p>The "Before" view only covers the welcome screen. Switch to "After" to go through the full onboarding.</p>
     <button data-testid="preview-back-button" onClick={onBack} className="rounded-full border border-pomegranate-300 px-5 py-2 text-pomegranate-700">
       Back to welcome screen
     </button>
@@ -14,7 +15,7 @@ const NextStep = ({ onBack }) => (
 );
 
 const VersionToggle = ({ version, setVersion }) => (
-  <div data-testid="preview-version-toggle" className="fixed top-24 left-1/2 z-50 flex -translate-x-1/2 gap-1 rounded-full bg-slate-900/85 p-1 text-xs text-white shadow-lg">
+  <div data-testid="preview-version-toggle" className="fixed bottom-4 right-4 z-50 flex gap-1 rounded-full bg-slate-900/85 p-1 text-xs text-white shadow-lg">
     {["before", "after"].map((v) => (
       <button
         key={v}
@@ -31,17 +32,25 @@ const VersionToggle = ({ version, setVersion }) => (
 function App() {
   const [version, setVersion] = useState("after");
   const [started, setStarted] = useState(false);
-  const Screen = version === "after" ? IntroStep : IntroStepOriginal;
+
+  const switchVersion = (v) => {
+    resetPreview();
+    setStarted(false);
+    if (v === "after" && version === "after") window.location.href = "/";
+    setVersion(v);
+  };
 
   return (
     <div className="pomi-theme">
       <BrowserRouter>
-        {started ? (
-          <NextStep onBack={() => setStarted(false)} />
+        {version === "after" ? (
+          <Start key="after" />
+        ) : started ? (
+          <BeforeNext onBack={() => setStarted(false)} />
         ) : (
-          <Screen key={version} onStart={() => setStarted(true)} />
+          <IntroStepOriginal onStart={() => setStarted(true)} />
         )}
-        <VersionToggle version={version} setVersion={(v) => { setVersion(v); setStarted(false); }} />
+        <VersionToggle version={version} setVersion={switchVersion} />
       </BrowserRouter>
     </div>
   );

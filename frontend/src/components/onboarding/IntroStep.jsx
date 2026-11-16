@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Droplet, Heart, Navigation } from "lucide-react";
-
+import { Image } from "@/components/ui/image";
 import pomiLogo from "@/assets/pomi-logo.png";
-import PublicHeader from "@/pomi/PublicHeader";
-import PublicFooter from "@/pomi/PublicFooter";
-
-const SERIF = { fontFamily: '"Cormorant Garamond", "Cormorant", Georgia, serif' };
+import PublicHeader from "@/components/PublicHeader";
+import PublicFooter from "@/components/PublicFooter";
+import { SERIF, primaryButton, arrowNudge, softCard } from "@/components/onboarding/styles";
 
 const POINTS = [
   {
@@ -43,11 +42,11 @@ export default function IntroStep({ onStart }) {
               layout
               transition={{ duration: 0.6, ease: "easeInOut" }}
             >
-              <img
+              <Image
                 src={pomiLogo}
                 alt="Pomi"
                 className={revealed ? "h-16 w-16 sm:h-20 sm:w-20" : "h-36 w-36"}
-                style={{ objectFit: "contain" }}
+                fittingType="fit"
               />
             </motion.div>
 
@@ -85,7 +84,7 @@ export default function IntroStep({ onStart }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <ul className="mt-12 divide-y divide-pomegranate-100 rounded-2xl border border-pomegranate-100 bg-white/70 px-6 shadow-[0_1px_2px_rgba(89,62,70,0.04),0_12px_32px_-20px_rgba(89,62,70,0.18)] sm:px-7">
+              <ul className={`mt-12 divide-y divide-pomegranate-100 px-6 sm:px-7 ${softCard}`}>
                 {POINTS.map(({ Icon, text }) => (
                   <li key={text} className="flex items-start gap-4 py-5">
                     <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-pomegranate-50 ring-1 ring-pomegranate-100">
@@ -104,10 +103,10 @@ export default function IntroStep({ onStart }) {
               <Button
                 onClick={onStart}
                 data-testid="onboarding-start-button"
-                className="group mt-10 h-14 w-full rounded-full bg-pomegranate-700 text-[0.9375rem] font-medium tracking-[0.02em] text-white shadow-[0_10px_28px_-12px_rgba(109,75,84,0.55)] transition-[background-color,box-shadow,transform] duration-200 hover:bg-pomegranate-800 hover:shadow-[0_14px_32px_-12px_rgba(109,75,84,0.6)] focus-visible:ring-2 focus-visible:ring-pomegranate-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.99]"
+                className={`mt-10 w-full ${primaryButton}`}
               >
                 Start with Pomi
-                <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                <ArrowRight className={arrowNudge} />
               </Button>
             </motion.div>
           )}

@@ -1,10 +1,22 @@
 .pomi-theme {
   --background: 42 37% 93%;
   --foreground: 350 10% 22%;
+  --card: 42 45% 97%;
+  --card-foreground: 350 10% 22%;
+  --popover: 42 45% 97%;
+  --popover-foreground: 350 10% 22%;
   --primary: 351 25% 63%;
   --primary-foreground: 42 50% 98%;
+  --secondary: 351 20% 89%;
+  --secondary-foreground: 351 18% 32%;
+  --muted: 351 16% 89%;
+  --muted-foreground: 351 8% 45%;
+  --accent: 351 22% 87%;
+  --accent-foreground: 351 18% 32%;
   --border: 351 18% 84%;
+  --input: 351 18% 84%;
   --ring: 351 25% 63%;
+  --radius: 0.5rem;
   background: hsl(var(--background));
   color: hsl(var(--foreground));
   font-family: ui-sans-serif, system-ui, sans-serif;

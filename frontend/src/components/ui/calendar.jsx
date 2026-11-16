@@ -8,11 +8,12 @@ import { buttonVariants } from "@/components/ui/button"
 function Calendar({
   className,
   classNames,
+  components,
   showOutsideDays = true,
   ...props
 }) {
   return (
-    <DayPicker
+    (<DayPicker
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       classNames={{
@@ -62,8 +63,9 @@ function Calendar({
         IconRight: ({ className, ...props }) => (
           <ChevronRight className={cn("h-4 w-4", className)} {...props} />
         ),
+        ...components,
       }}
-      {...props} />
+      {...props} />)
   );
 }
 Calendar.displayName = "Calendar"
